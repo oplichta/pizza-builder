@@ -1,0 +1,26 @@
+<div class="pizza-preview">
+  <div class="pizza-preview-table-side"></div>
+  <div class="pizza-preview-table"></div>
+  {{ activePizza }}
+  <div
+    class="pizza"
+    [class.pizza--active]="activePizza === i"
+    *ngFor="let pizza of pizzas?.controls; let i = index"
+  >
+    <div class="pizza-board"></div>
+    <div class="pizza-base"></div>
+    <div class="pizza-ingredients">
+      <div
+        *ngFor="let ingredient of pizza.value.ingredients; let i = index"
+        [style.zIndex]="i"
+        @drop
+      >
+        <div class="pizza-ingredient pizza-ingredient--{{ ingredient }}"></div>
+        <div class="pizza-ingredient pizza-ingredient--{{ ingredient }}"></div>
+        <div class="pizza-ingredient pizza-ingredient--{{ ingredient }}"></div>
+        <div class="pizza-ingredient pizza-ingredient--{{ ingredient }}"></div>
+        <div class="pizza-ingredient pizza-ingredient--{{ ingredient }}"></div>
+      </div>
+    </div>
+  </div>
+</div>

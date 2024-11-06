@@ -1,0 +1,15 @@
+<div class="pizza-builder-container">
+  <app-pizza-preview
+    [pizzas]="pizzas"
+    [activePizza]="activePizza"
+  ></app-pizza-preview>
+  <app-order-form
+    [parent]="orderForm"
+    [totalPrice]="totalPrice"
+    [prices]="prices"
+    (add)="addPizza()"
+    (remove)="removePizza($event)"
+    (toggle)="togglePizza($event)"
+    (submit)="createOrder($event)"
+  ></app-order-form>
+</div>
