@@ -18,6 +18,10 @@
     "@angular/platform-browser": "^18.2.0",
     "@angular/platform-browser-dynamic": "^18.2.0",
     "@angular/router": "^18.2.0",
+    "@ngrx/effects": "^18.1.1",
+    "@ngrx/entity": "^18.1.1",
+    "@ngrx/store": "^18.1.1",
+    "@ngrx/store-devtools": "^18.1.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.10"
@@ -33,6 +37,17 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
+    "prettier": "^3.3.3",
     "typescript": "~5.5.2"
+  },
+  "prettier": {
+    "printWidth": 140,
+    "singleQuote": true,
+    "semi": true,
+    "arrowParens": "always",
+    "trailingComma": "es5",
+    "tabWidth": 4,
+    "tabs": false,
+    "endOfLine": "auto"
   }
 }
