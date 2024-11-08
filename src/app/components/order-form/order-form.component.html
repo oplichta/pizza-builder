@@ -1,114 +1,75 @@
-@if(parent){
-<form (ngSubmit)="onSubmit($event)" [formGroup]="parent">
-  <h2>Enter your details</h2>
-  <div class="section" formGroupName="details">
-    <div class="input">
-      <label>
-        Name <span class="required">*</span>
-        <span
-          *ngIf="
-            parent.get('details')?.get('name')?.hasError('required') &&
-            parent.get('details')?.get('name')?.touched
-          "
-          class="error"
-        >
-          Field is required
-        </span>
-      </label>
-      <input formControlName="name" type="text" placeholder="Jan Kowalski" />
-    </div>
-    <div class="input">
-      <label>
-        Email <span class="required">*</span>
-        <span
-          *ngIf="
-            parent.get('details')?.get('email')?.errors &&
-            parent.get('details')?.get('email')?.touched
-          "
-          class="error"
-        >
-          Field is required
-        </span>
-      </label>
-      <input
-        formControlName="email"
-        type="email"
-        placeholder="Enter your email"
-      />
-    </div>
-  </div>
-  <div class="section" formGroupName="details">
-    <div class="input">
-      <label>
-        Address <span class="required">*</span>
-        <span
-          *ngIf="
-            parent.get('details')?.get('address')?.errors &&
-            parent.get('details')?.get('address')?.touched
-          "
-          class="error"
-        >
-          <span
-            *ngIf="parent.get('details')?.get('address')?.hasError('required')"
-          >
-            Field is required
-          </span>
-          <span
-            *ngIf="parent.get('details')?.get('address')?.hasError('minlength')"
-          >
-            Min of 3 characters
-          </span>
-        </span>
-      </label>
-      <input formControlName="address" type="text" placeholder="Street" />
-    </div>
-    <div class="input">
-      <label>
-        Postcode <span class="required">*</span>
-        <span
-          *ngIf="
-            parent.get('details')?.get('postcode')?.errors &&
-            parent.get('details')?.get('postcode')?.touched
-          "
-          class="error"
-        >
-          <span
-            *ngIf="parent.get('details')?.get('postcode')?.hasError('required')"
-          >
-            Field is required
-          </span>
-          <span
-            *ngIf="
-              parent.get('details')?.get('postcode')?.hasError('minlength')
-            "
-          >
-            Min of 3 characters
-          </span>
-        </span>
-      </label>
-      <input formControlName="postcode" type="text" placeholder="00-000" />
-    </div>
-    <div class="input">
-      <label>
-        Contact Number <span class="required">*</span>
-        <span
-          *ngIf="
-            parent.get('details')?.get('phone')?.errors &&
-            parent.get('details')?.get('phone')?.touched
-          "
-          class="error"
-        >
-          Field is required
-        </span>
-      </label>
-      <input
-        formControlName="phone"
-        type="text"
-        placeholder="+48 123 456 789"
-      />
-    </div>
-  </div>
-</form>
+@if (parent) {
+    <form (ngSubmit)="onSubmit($event)" [formGroup]="parent">
+        <h2>Enter your details</h2>
+        <div class="section" formGroupName="details">
+            <div class="input">
+                <label>
+                    Name <span class="required">*</span>
+                    <span
+                        *ngIf="parent.get('details')?.get('name')?.hasError('required') && parent.get('details')?.get('name')?.touched"
+                        class="error"
+                    >
+                        Field is required
+                    </span>
+                </label>
+                <input formControlName="name" type="text" placeholder="Jan Kowalski" />
+                <div class="click-btn" (click)="addPizzaToOrder()">click</div>
+            </div>
+            <div class="input">
+                <label>
+                    Email <span class="required">*</span>
+                    <span *ngIf="parent.get('details')?.get('email')?.errors && parent.get('details')?.get('email')?.touched" class="error">
+                        Field is required
+                    </span>
+                </label>
+                <input formControlName="email" type="email" placeholder="Enter your email" />
+            </div>
+        </div>
+        <div class="section" formGroupName="details">
+            <div class="input">
+                <label>
+                    Address <span class="required">*</span>
+                    <span
+                        *ngIf="parent.get('details')?.get('address')?.errors && parent.get('details')?.get('address')?.touched"
+                        class="error"
+                    >
+                        <span *ngIf="parent.get('details')?.get('address')?.hasError('required')"> Field is required </span>
+                        <span *ngIf="parent.get('details')?.get('address')?.hasError('minlength')"> Min of 3 characters </span>
+                    </span>
+                </label>
+                <input formControlName="address" type="text" placeholder="Street" />
+            </div>
+            <div class="input">
+                <label>
+                    Postcode <span class="required">*</span>
+                    <span
+                        *ngIf="parent.get('details')?.get('postcode')?.errors && parent.get('details')?.get('postcode')?.touched"
+                        class="error"
+                    >
+                        <span *ngIf="parent.get('details')?.get('postcode')?.hasError('required')"> Field is required </span>
+                        <span *ngIf="parent.get('details')?.get('postcode')?.hasError('minlength')"> Min of 3 characters </span>
+                    </span>
+                </label>
+                <input formControlName="postcode" type="text" placeholder="00-000" />
+            </div>
+            <div class="input">
+                <label>
+                    Contact Number <span class="required">*</span>
+                    <span *ngIf="parent.get('details')?.get('phone')?.errors && parent.get('details')?.get('phone')?.touched" class="error">
+                        Field is required
+                    </span>
+                </label>
+                <input formControlName="phone" type="text" placeholder="+48 123 456 789" />
+            </div>
+        </div>
+
+        <!-- [pizzas]="pizzas"
+            (add)="onAddPizza($event)"
+            (remove)="onRemovePizza($event)" -->
+        <pizza-creator (toggle)="onToggle($event)"> </pizza-creator>
+
+        <order-summary [parent]="parent" [prices]="prices" [totalPrice]="totalPrice"></order-summary>
+    </form>
 } @else {
-<div>Form not found</div>
+    <div>Form not found</div>
 }

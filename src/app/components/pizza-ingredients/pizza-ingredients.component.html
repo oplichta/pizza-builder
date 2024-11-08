@@ -1,0 +1,18 @@
+<div class="pizza-ingredients">
+    <label 
+      *ngFor="let ingredient of ingredients"
+      class="pizza-ingredient"
+      [class.pizza-ingredient--active]="value.includes(ingredient)"
+      [class.pizza-ingredient--focused]="focused === ingredient">
+      <input 
+        type="checkbox"
+        [attr.name]="ingredient"
+        [attr.value]="ingredient"
+        (blur)="onBlur(ingredient)"
+        (change)="updateIngredient(ingredient)"
+        (focus)="onFocus(ingredient)"
+        [checked]="value.includes(ingredient)">
+      <span class="pizza-ingredient__icon pizza-ingredient__icon--{{ ingredient }}"></span>
+      {{ ingredient | titlecase }}
+    </label>
+  </div>
