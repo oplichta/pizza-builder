@@ -1,15 +1,11 @@
 <div class="pizza-builder-container">
-  <app-pizza-preview
-    [pizzas]="pizzas"
-    [activePizza]="activePizza"
-  ></app-pizza-preview>
-  <app-order-form
-    [parent]="orderForm"
-    [totalPrice]="totalPrice"
-    [prices]="prices"
-    (add)="addPizza()"
-    (remove)="removePizza($event)"
-    (toggle)="togglePizza($event)"
-    (submit)="createOrder($event)"
-  ></app-order-form>
+    <pizza-preview></pizza-preview>
+    @if (showForm) {
+        <order-form (submit)="createOrder()"></order-form>
+    } @else {
+        <div class="pizza-creator-container">
+            <pizza-creator></pizza-creator>
+            <order-summary (goToOrderForm)="goToOrderFormHandler()"></order-summary>
+        </div>
+    }
 </div>

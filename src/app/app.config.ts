@@ -1,6 +1,6 @@
 import { ApplicationConfig, provideZoneChangeDetection, isDevMode } from '@angular/core';
 import { provideRouter } from '@angular/router';
-
+import { provideAnimations } from '@angular/platform-browser/animations';
 import { routes } from './app.routes';
 import { provideStore } from '@ngrx/store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
@@ -14,5 +14,6 @@ export const appConfig: ApplicationConfig = {
         provideStore({ order: orderReducer }),
         provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
         provideEffects(),
+        provideAnimations(),
     ],
 };

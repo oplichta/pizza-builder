@@ -1,67 +1,64 @@
 import { CommonModule } from '@angular/common';
 import { Component, forwardRef } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-
-const PIZZA_INGREDIENTS_ACCESSOR = {
-  provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => PizzaIngredientsComponent),
-  multi: true
-};
-
+import { map, Observable, switchMap, take } from 'rxjs';
+import { Ingredient, Pizza } from '../../store/order.models';
+import { Store } from '@ngrx/store';
+import { selectActivePizzaId, selectIngredientsOfPizza } from '../../store/order.selectors';
+import { addIngredient, removeIngredient } from '../../store/order.actions';
 
 @Component({
-  selector: 'pizza-ingredients',
-  standalone: true,
-  imports: [CommonModule],
-  providers: [PIZZA_INGREDIENTS_ACCESSOR],
-  templateUrl: './pizza-ingredients.component.html',
-  styleUrl: './pizza-ingredients.component.scss'
+    selector: 'pizza-ingredients',
+    standalone: true,
+    imports: [CommonModule],
+    templateUrl: './pizza-ingredients.component.html',
+    styleUrl: './pizza-ingredients.component.scss',
 })
 export class PizzaIngredientsComponent {
+    ingredients = [
+        'anchovy',
+        'bacon',
+        'basil',
+        'chili',
+        'mozzarella',
+        'mushroom',
+        'olive',
+        'onion',
+        'pepper',
+        'pepperoni',
+        'sweetcorn',
+        'tomato',
+    ];
 
-  ingredients = [
-    'anchovy', 'bacon', 'basil', 'chili', 'mozzarella', 'mushroom',
-    'olive', 'onion', 'pepper', 'pepperoni', 'sweetcorn', 'tomato'
-  ];
+    activePizzaId$: Observable<number>;
+    ingredients$: Observable<Ingredient[]>;
+    activePizzaId = 0;
 
-  value: string[] = [];
-  focused?: string;
-
-  private onModelChange: (value: any) => void = () => {};
-  private onTouch: () => void = () => {};
-
-  registerOnChange(fn: (value: any) => void) {
-    console.log('registerOnChange', this.value);
-    this.onModelChange = fn;
-  }
-
-  registerOnTouched(fn: () => void) {
-    this.onTouch = fn;
-  }
-
-  writeValue(value: any) {
-    this.value = value;
-  }
-
-  updateIngredient(ingredient: string) {
-    console.log('updateIngredient', ingredient);
-    if (this.value.includes(ingredient)) {
-      this.value = this.value.filter((x: string) => ingredient !== x);
-    } else {
-      this.value = this.value.concat([ingredient]);
+    constructor(private store: Store) {
+        this.activePizzaId$ = this.store.select(selectActivePizzaId);
+        this.ingredients$ = this.activePizzaId$.pipe(switchMap((pizzaId) => this.store.select(selectIngredientsOfPizza(pizzaId))));
     }
-    this.onModelChange(this.value);
-  }
 
-  onBlur(value: string) {
-    this.focused = '';
-  }
+    ngOnInit() {
+        this.activePizzaId$.subscribe((activePizzaId) => {
+            this.activePizzaId = activePizzaId;
+        });
+    }
+    updateIngredient(ingredient: string) {
+        this.activePizzaId$.pipe(take(1)).subscribe((activePizzaId) => {
+            this.ingredients$.pipe(take(1)).subscribe((ingredients) => {
+                const existingIngredient = ingredients.find((x) => x.name === ingredient);
+                if (existingIngredient) {
+                    this.store.dispatch(removeIngredient({ pizzaId: activePizzaId, ingredientId: existingIngredient.id }));
+                } else {
+                    const ingredientId = ingredients.length + 1;
+                    const ingredientObj = { id: ingredientId, name: ingredient, quantity: 1, pizzaId: activePizzaId };
+                    this.store.dispatch(addIngredient({ ingredient: ingredientObj }));
+                }
+            });
+        });
+    }
 
-  onFocus(value: string) {
-    this.focused = value;
-    this.onTouch();
-  }
-
-
-
+    checkIngredient(ingredient: string): Observable<boolean> {
+        return this.ingredients$.pipe(map((ingredients) => ingredients.some((x) => x.name === ingredient)));
+    }
 }
