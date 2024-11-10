@@ -1,5 +1,7 @@
 # PizzaBuilder
 
+## Check live demo [https://oplichta.github.io/pizza-builder/](https://oplichta.github.io/pizza-builder/)
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.11.
 
 ## Development server
