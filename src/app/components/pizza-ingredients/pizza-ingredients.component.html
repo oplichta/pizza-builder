@@ -1,18 +1,13 @@
 <div class="pizza-ingredients">
-    <label 
-      *ngFor="let ingredient of ingredients"
-      class="pizza-ingredient"
-      [class.pizza-ingredient--active]="value.includes(ingredient)"
-      [class.pizza-ingredient--focused]="focused === ingredient">
-      <input 
-        type="checkbox"
-        [attr.name]="ingredient"
-        [attr.value]="ingredient"
-        (blur)="onBlur(ingredient)"
-        (change)="updateIngredient(ingredient)"
-        (focus)="onFocus(ingredient)"
-        [checked]="value.includes(ingredient)">
-      <span class="pizza-ingredient__icon pizza-ingredient__icon--{{ ingredient }}"></span>
-      {{ ingredient | titlecase }}
+    <label *ngFor="let ingredient of ingredients" class="pizza-ingredient" [class.pizza-ingredient--active]="checkIngredient(ingredient) | async">
+        <input
+            type="checkbox"
+            [attr.name]="ingredient"
+            [attr.value]="ingredient"
+            (change)="updateIngredient(ingredient)"
+            [checked]="checkIngredient(ingredient)  | async"
+        />
+        <span class="pizza-ingredient__icon pizza-ingredient__icon--{{ ingredient }}"></span>
+        {{ ingredient | titlecase }}
     </label>
-  </div>
+</div>

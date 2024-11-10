@@ -7,7 +7,6 @@
         type="radio"
         name="size"
         [attr.value]="size.type"
-        (blur)="onBlur(size.type)"
         (change)="onChange(size.type)"
         (focus)="onFocus(size.type)"
         [checked]="value === size.type">
