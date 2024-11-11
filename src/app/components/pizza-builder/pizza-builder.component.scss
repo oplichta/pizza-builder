@@ -16,3 +16,16 @@
     overflow-y: scroll;
     height: 100%;
 }
+@media (max-width: 768px) {
+    .pizza-builder-container {
+        width: unset;
+        flex-direction: column;
+    } 
+
+    .pizza-creator-container {
+      top: 250px;
+      width: 90vw;
+      right: 40px;
+      overflow-y: unset;
+    }
+  }
