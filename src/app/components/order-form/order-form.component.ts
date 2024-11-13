@@ -26,19 +26,17 @@ export class OrderFormComponent {
 
   ngOnInit() {
     this.orderForm = this.fb.group({
-      details: this.fb.group({
         name: ['', Validators.required],
         email: ['', Validators.required],
         confirm: ['', Validators.required],
         phone: ['', Validators.required],
         address: ['', [Validators.required, Validators.minLength(3)]],
         postcode: ['', [Validators.required, Validators.minLength(3)]],
-      })
     });
   }
   
-  get detailsFormGroup(): FormGroup {
-    return this.orderForm.get('details') as FormGroup;
+  get formGroup(): FormGroup {
+    return this.orderForm as FormGroup;
   }
 
 
