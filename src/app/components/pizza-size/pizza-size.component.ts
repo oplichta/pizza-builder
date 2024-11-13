@@ -30,12 +30,7 @@ export class PizzaSizeComponent {
 
   onChange(value: PizzaSize) {
     this.value = value;
-    console.log('Pizza size changed to', value);
     this.store.dispatch(updatePizzaSize({ size: value }));
-  }
-
-  onBlur(value: string) {
-    this.focused = '';
   }
 
   onFocus(value: PizzaSize) {

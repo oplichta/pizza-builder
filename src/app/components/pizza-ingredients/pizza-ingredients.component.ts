@@ -43,6 +43,7 @@ export class PizzaIngredientsComponent {
             this.activePizzaId = activePizzaId;
         });
     }
+    
     updateIngredient(ingredient: string) {
         this.activePizzaId$.pipe(take(1)).subscribe((activePizzaId) => {
             this.ingredients$.pipe(take(1)).subscribe((ingredients) => {
