@@ -1,6 +1,8 @@
-    <form (ngSubmit)="onSubmit($event)" [formGroup]="detailsFormGroup" >
+
+ <form (ngSubmit)="onSubmit($event)" [formGroup]="formGroup" >
+
         <h2>Enter your details</h2>
-        <div class="section" formGroupName="details">
+        <div class="section">
             <div class="input">
                 <label>
                     Name <span class="required">*</span>
@@ -23,7 +25,7 @@
                 <input formControlName="email" type="email" placeholder="Enter your email" />
             </div>
         </div>
-        <div class="section" formGroupName="details">
+        <div class="section">
             <div class="input">
                 <label>
                     Address <span class="required">*</span>
