@@ -1,13 +1,12 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormArray } from '@angular/forms';
-import { PizzaSizeComponent } from '../pizza-size/pizza-size.component';
 import { CommonModule } from '@angular/common';
-import { PizzaIngredientsComponent } from '../pizza-ingredients/pizza-ingredients.component';
-import { Pizza, PizzaSize } from '../../store/order.models';
-import { Observable, take } from 'rxjs';
-import { selectActivePizzaId, selectOrderItems } from '../../store/order.selectors';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { Observable, take } from 'rxjs';
 import { addPizza, removePizza, setActivePizza } from '../../store/order.actions';
+import { Pizza, PizzaSize } from '../../store/order.models';
+import { selectActivePizzaId, selectOrderItems } from '../../store/order.selectors';
+import { PizzaIngredientsComponent } from '../pizza-ingredients/pizza-ingredients.component';
+import { PizzaSizeComponent } from '../pizza-size/pizza-size.component';
 
 @Component({
     selector: 'pizza-creator',
@@ -30,27 +29,11 @@ export class PizzaCreatorComponent implements OnInit {
         this.activePizzaId$ = this.store.select(selectActivePizzaId);
     }
 
-    // get openPizza() {
-    //     return this.visiblePizza;
-    // }
-
-    // set openPizza(index: number) {
-    //     this.visiblePizza = index;
-    //     if (~index) {
-    //         this.toggle.emit(index);
-    //     }
-    // }
-
-    // private visiblePizza: number = 0;
-
     ngOnInit() {
-        setTimeout(() => {
-            this.addPizza();
-        });
+        this.addPizza();
     }
 
     addPizza() {
-        console.log('addPizza');
         this.pizzas$.pipe(take(1)).subscribe((pizzas) => {
             const pizzaId = pizzas.length;
             const pizza: Pizza = { id: pizzaId, size: this.pizzaSizes.Small, name: 'Pizza', price: 1, quantity: 1, ingredients: [] };
@@ -60,19 +43,19 @@ export class PizzaCreatorComponent implements OnInit {
     }
 
     removePizza(index: number): void {
-        this.pizzas$.pipe(take(1)).subscribe(pizzas => {
-          const pizzaId = pizzas[index].id;
-          this.store.dispatch(removePizza({ pizzaId }));
-          const newActivePizzaId = pizzas.length > 1 ? pizzas[pizzas.length - 2].id : 0;
-          this.store.dispatch(setActivePizza({ pizzaId: newActivePizzaId }));
+        this.pizzas$.pipe(take(1)).subscribe((pizzas) => {
+            const pizzaId = pizzas[index].id;
+            this.store.dispatch(removePizza({ pizzaId }));
+            const newActivePizzaId = pizzas.length > 1 ? pizzas[pizzas.length - 2].id : 0;
+            this.store.dispatch(setActivePizza({ pizzaId: newActivePizzaId }));
         });
-      }
-    
-      togglePizza(index: number): void {
-        this.pizzas$.pipe(take(1)).subscribe(pizzas => {
-          const pizzaId = pizzas[index].id;
-          this.store.dispatch(setActivePizza({ pizzaId }));
-          this.toggle.emit(index);
+    }
+
+    togglePizza(index: number): void {
+        this.pizzas$.pipe(take(1)).subscribe((pizzas) => {
+            const pizzaId = pizzas[index].id;
+            this.store.dispatch(setActivePizza({ pizzaId }));
+            this.toggle.emit(index);
         });
-      }
+    }
 }
