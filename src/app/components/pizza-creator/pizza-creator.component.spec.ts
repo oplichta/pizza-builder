@@ -2,12 +2,14 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideMockStore, MockStore } from '@ngrx/store/testing';
 import { PizzaCreatorComponent } from './pizza-creator.component';
 import { Pizza, PizzaSize } from '../../store/order.models';
-import { of } from 'rxjs';
+import { selectActivePizzaId, selectOrderItems } from '../../store/order.selectors';
+import { addPizza, removePizza, setActivePizza } from '../../store/order.actions';
 
 describe('PizzaCreatorComponent', () => {
   let component: PizzaCreatorComponent;
   let fixture: ComponentFixture<PizzaCreatorComponent>;
   let store: MockStore;
+  let dispatchSpy: jest.SpyInstance;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -19,8 +21,10 @@ describe('PizzaCreatorComponent', () => {
 
     fixture = TestBed.createComponent(PizzaCreatorComponent);
     component = fixture.componentInstance;
-    component.activePizzaId$ = of(1);
     store = TestBed.inject(MockStore);
+    dispatchSpy = jest.spyOn(store, 'dispatch');
+    store.overrideSelector(selectOrderItems, []);
+    store.overrideSelector(selectActivePizzaId, 0);
     fixture.detectChanges();
   });
 
@@ -36,20 +40,30 @@ describe('PizzaCreatorComponent', () => {
   });
 
   it('should add pizza on addPizza', () => {
-    const pizza: Pizza = { id: 1, size: PizzaSize.Small, name: 'Pizza', price: 1, quantity: 1, ingredients: [] };
+    const pizza: Pizza = { id: 0, size: PizzaSize.Small, name: 'Pizza', price: 1, quantity: 1, ingredients: [] };
+    store.overrideSelector(selectOrderItems, []);
     component.addPizza();
-    component.pizzas$ = of([]);
-    fixture.detectChanges();
-    component.pizzas$.subscribe(pizzas => {
-      expect(pizzas).toContainEqual(pizza);
-    });
+    expect(dispatchSpy).toHaveBeenCalledWith(addPizza({ pizza }));
+    expect(dispatchSpy).toHaveBeenCalledWith(setActivePizza({ pizzaId: 0 }));
   });
+
+  it('should remove pizza on removePizza', () => {
+    const pizza: Pizza = { id: 0, size: PizzaSize.Small, name: 'Pizza', price: 1, quantity: 1, ingredients: [] };
+    store.overrideSelector(selectOrderItems, [pizza]);
+    component.removePizza(0);
+    expect(dispatchSpy).toHaveBeenCalledWith(removePizza({ pizzaId: 0 }));
+    expect(dispatchSpy).toHaveBeenCalledWith(setActivePizza({ pizzaId: 0 }));
+  });
+
  
   it('should change active pizza on togglePizza', () => {
+    const pizzas: Pizza[] = [
+      { id: 0, size: PizzaSize.Small, name: 'Pizza 1', price: 1, quantity: 1, ingredients: [] },
+      { id: 1, size: PizzaSize.Medium, name: 'Pizza 2', price: 2, quantity: 1, ingredients: [] },
+      { id: 2, size: PizzaSize.Large, name: 'Pizza 3', price: 3, quantity: 1, ingredients: [] }
+    ];
+    store.overrideSelector(selectOrderItems, pizzas);
     component.togglePizza(2);
-    fixture.detectChanges();
-    component.activePizzaId$.subscribe(pizzaId => {
-      expect(pizzaId).toEqual(2);
-    });
+    expect(dispatchSpy).toHaveBeenCalledWith(setActivePizza({ pizzaId: 2 }));
   });
 });

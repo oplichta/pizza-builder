@@ -16,7 +16,7 @@ export class PizzaBuilderComponent {
   showForm = false;
 
   goToOrderFormHandler() {
-    // this.showForm = true;
+    this.showForm = true;
   }
 
   createOrder() {

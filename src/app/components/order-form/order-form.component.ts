@@ -1,16 +1,16 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Ingredient, Pizza } from '../../store/order.models';
-import { Observable } from 'rxjs';
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { Pizza } from '../../store/order.models';
 import { selectOrderItems, selectOrderTotalAmount } from '../../store/order.selectors';
-import { addIngredient, removeIngredient, updateItemQuantity, clearOrder, addPizza } from '../../store/order.actions';
+import { OrderSummaryComponent } from '../order-summary/order-summary.component';
 
 @Component({
   selector: 'order-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, OrderSummaryComponent],
   templateUrl: './order-form.component.html',
   styleUrl: './order-form.component.scss'
 })
@@ -28,7 +28,6 @@ export class OrderFormComponent {
     this.orderForm = this.fb.group({
         name: ['', Validators.required],
         email: ['', Validators.required],
-        confirm: ['', Validators.required],
         phone: ['', Validators.required],
         address: ['', [Validators.required, Validators.minLength(3)]],
         postcode: ['', [Validators.required, Validators.minLength(3)]],
@@ -39,7 +38,9 @@ export class OrderFormComponent {
     return this.orderForm as FormGroup;
   }
 
-
+  goToPayment() {
+     alert('Your order is on the way! :) ');
+  }
 
   onSubmit(event: any) {
     event.stopPropagation();
