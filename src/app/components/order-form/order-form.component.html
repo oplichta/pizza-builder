@@ -63,3 +63,4 @@
             </div>
         </div>
     </form>
+    <order-summary [disabledContiniue]="!orderForm.valid"  (goToPayment)="goToPayment()"></order-summary>
