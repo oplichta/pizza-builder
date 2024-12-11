@@ -6,11 +6,10 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { updatePizzaSize } from '../../store/order.actions';
 @Component({
-  selector: 'pizza-size',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './pizza-size.component.html',
-  styleUrl: './pizza-size.component.scss'
+    selector: 'pizza-size',
+    imports: [CommonModule],
+    templateUrl: './pizza-size.component.html',
+    styleUrl: './pizza-size.component.scss'
 })
 export class PizzaSizeComponent {
   value?: string;

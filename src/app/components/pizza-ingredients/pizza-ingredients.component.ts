@@ -8,10 +8,9 @@ import { addIngredient, removeIngredient } from '../../store/order.actions';
 
 @Component({
     selector: 'pizza-ingredients',
-    standalone: true,
     imports: [CommonModule],
     templateUrl: './pizza-ingredients.component.html',
-    styleUrl: './pizza-ingredients.component.scss',
+    styleUrl: './pizza-ingredients.component.scss'
 })
 export class PizzaIngredientsComponent {
     ingredients = [

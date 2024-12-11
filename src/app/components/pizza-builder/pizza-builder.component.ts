@@ -5,11 +5,10 @@ import { OrderSummaryComponent } from '../order-summary/order-summary.component'
 import { PizzaCreatorComponent } from '../pizza-creator/pizza-creator.component';
 
 @Component({
-  selector: 'app-pizza-builder',
-  standalone: true,
-  imports: [PizzaPreviewComponent, OrderFormComponent, PizzaCreatorComponent, OrderSummaryComponent],
-  templateUrl: './pizza-builder.component.html',
-  styleUrl: './pizza-builder.component.scss',
+    selector: 'app-pizza-builder',
+    imports: [PizzaPreviewComponent, OrderFormComponent, PizzaCreatorComponent, OrderSummaryComponent],
+    templateUrl: './pizza-builder.component.html',
+    styleUrl: './pizza-builder.component.scss'
 })
 export class PizzaBuilderComponent {
   activePizza = 0;

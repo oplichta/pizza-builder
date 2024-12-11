@@ -20,11 +20,10 @@ export const DROP_ANIMATION = trigger('drop', [
 
 @Component({
     selector: 'pizza-preview',
-    standalone: true,
     imports: [CommonModule],
     templateUrl: './pizza-preview.component.html',
     styleUrl: './pizza-preview.component.scss',
-    animations: [DROP_ANIMATION],
+    animations: [DROP_ANIMATION]
 })
 export class PizzaPreviewComponent {
     ingredients$: Observable<Ingredient[]>;
