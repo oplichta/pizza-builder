@@ -8,10 +8,9 @@ import { Pizza } from '../../store/order.models';
 
 @Component({
     selector: 'order-summary',
-    standalone: true,
     imports: [CommonModule],
     templateUrl: './order-summary.component.html',
-    styleUrl: './order-summary.component.scss',
+    styleUrl: './order-summary.component.scss'
 })
 export class OrderSummaryComponent {
     @Input() disabledContiniue = false;

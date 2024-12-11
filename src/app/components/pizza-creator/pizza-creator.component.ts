@@ -10,10 +10,9 @@ import { PizzaSizeComponent } from '../pizza-size/pizza-size.component';
 
 @Component({
     selector: 'pizza-creator',
-    standalone: true,
     imports: [PizzaSizeComponent, CommonModule, PizzaIngredientsComponent],
     templateUrl: './pizza-creator.component.html',
-    styleUrl: './pizza-creator.component.scss',
+    styleUrl: './pizza-creator.component.scss'
 })
 export class PizzaCreatorComponent implements OnInit {
     @Output() add = new EventEmitter<any>();

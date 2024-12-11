@@ -32,7 +32,7 @@
 
             .pizza-size__plate {
                 background: #f3f3f3;
-                border: 3px solid darken(#f3f3f3, 10%);
+                border: 3px solid #dbdbdb;
             }
 
             .pizza-size__pizza__line {
@@ -42,8 +42,8 @@
 
         &--focused {
             .pizza-size__plate {
-                background: darken(#f3f3f3, 10%);
-                border: 3px solid darken(#f3f3f3, 20%);
+                background: #dbdbdb;
+                border: 3px solid #c2c2c2;
             }
         }
     }

@@ -8,11 +8,10 @@ import { selectOrderItems, selectOrderTotalAmount } from '../../store/order.sele
 import { OrderSummaryComponent } from '../order-summary/order-summary.component';
 
 @Component({
-  selector: 'order-form',
-  standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, OrderSummaryComponent],
-  templateUrl: './order-form.component.html',
-  styleUrl: './order-form.component.scss'
+    selector: 'order-form',
+    imports: [CommonModule, ReactiveFormsModule, OrderSummaryComponent],
+    templateUrl: './order-form.component.html',
+    styleUrl: './order-form.component.scss'
 })
 export class OrderFormComponent {
   pizzas$: Observable<Pizza[]>;
