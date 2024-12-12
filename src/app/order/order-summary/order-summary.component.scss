@@ -37,3 +37,14 @@
         text-align: right;
     }
 }
+
+@media (max-width: 768px) {
+    :host {
+        display: flex;
+        justify-content: center;
+    }
+
+    .pizza-summary {
+        width: 100vw;
+    }
+}

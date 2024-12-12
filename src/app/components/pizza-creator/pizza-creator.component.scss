@@ -13,11 +13,13 @@
     }
     &__header {
       font-size: 16px;
+      margin-top: 2px;
       padding: 10px 15px;
       color: rgba(0, 0, 0, 0.6);
+      background: rgba(0, 0, 0, 0.05);
+      border-radius: 4px;
       position: relative;
       cursor: pointer;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     }
   
     &__icon {
@@ -43,6 +45,8 @@
   
     &__delete {
       position: absolute;
+      display: flex;
+      align-items: center;
       top: 4px;
       right: 4px;
       padding: 9px;
@@ -53,6 +57,10 @@
       &:hover {
         background: rgba(0, 0, 0, 0.05);
       }
+    }
+
+    &__icon-trash {
+      width: 20px;
     }
   
     &__content {
