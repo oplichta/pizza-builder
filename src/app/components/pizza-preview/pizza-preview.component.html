@@ -1,7 +1,6 @@
 <div class="pizza-preview">
     <div class="pizza-preview-table-side"></div>
     <div class="pizza-preview-table"></div>
-    {{ activePizzaId + 1  }}
     <div class="pizza" [class.pizza--active]="activePizzaId === i" *ngFor="let pizza of pizzas$ | async; let i = index">
         <div class="pizza-board"></div>
         <div class="pizza-base"></div>

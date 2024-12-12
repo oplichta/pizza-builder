@@ -1,38 +1,50 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { Pizza, PizzaSize } from '../../store/order.models';
-import { selectOrderItems } from '../../store/order.selectors';
-import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { updatePizzaSize } from '../../store/order.actions';
+import { Component, forwardRef } from '@angular/core';
+import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { PizzaSize } from '../../store/order.models';
+
 @Component({
     selector: 'pizza-size',
     imports: [CommonModule],
     templateUrl: './pizza-size.component.html',
-    styleUrl: './pizza-size.component.scss'
+    styleUrls: ['./pizza-size.component.scss'],
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => PizzaSizeComponent),
+            multi: true,
+        },
+    ],
 })
-export class PizzaSizeComponent {
-  value?: string;
-  focused?: string;
-  pizaSizes = PizzaSize;
-  pizzas$: Observable<Pizza[]>;
-  
-  sizes: any[] = [
-    { type: this.pizaSizes.Small, centimeters: 30 },
-    { type: this.pizaSizes.Medium, centimeters: 40 },
-    { type: this.pizaSizes.Large, centimeters: 50 }
-  ];
+export class PizzaSizeComponent implements ControlValueAccessor {
+    value = PizzaSize.Small;
+    sizes = [
+        { type: PizzaSize.Small, centimeters: 30 },
+        { type: PizzaSize.Medium, centimeters: 40 },
+        { type: PizzaSize.Large, centimeters: 50 },
+    ];
 
-  constructor(private store: Store) {
-    this.pizzas$ = this.store.select(selectOrderItems);
-}
+    private onChange: (value: PizzaSize) => void = () => {};
+    private onTouched: () => void = () => {};
 
-  onChange(value: PizzaSize) {
-    this.value = value;
-    this.store.dispatch(updatePizzaSize({ size: value }));
-  }
+    onChangeSize(value: PizzaSize) {
+        this.value = value;
+        this.onChange(value);
+        this.onTouched();
+    }
 
-  onFocus(value: PizzaSize) {
-    this.focused = value;
-  }
+    // ControlValueAccessor methods
+    writeValue(value: PizzaSize): void {
+        this.value = value;
+    }
+
+    registerOnChange(fn: (value: PizzaSize) => void): void {
+        this.onChange = fn;
+    }
+
+    registerOnTouched(fn: () => void): void {
+        this.onTouched = fn;
+    }
+
+    setDisabledState?(isDisabled: boolean): void {}
 }

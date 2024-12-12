@@ -1,11 +1,8 @@
 <div class="pizza-builder-container">
     <pizza-preview></pizza-preview>
-    @if (showForm) {
-        <order-form (submit)="createOrder()"></order-form>
-    } @else {
-        <div class="pizza-creator-container">
-            <pizza-creator></pizza-creator>
-            <order-summary (goToOrderForm)="goToOrderFormHandler()"></order-summary>
-        </div>
-    }
+    <div class="pizza-creator-container">
+        <pizza-creator></pizza-creator>
+        <order-summary></order-summary>
+        <button (click)="goToOrder()" class="pizza-continiue-button">Continiue</button>
+    </div>
 </div>

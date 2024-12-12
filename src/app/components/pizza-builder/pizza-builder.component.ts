@@ -1,24 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { PizzaPreviewComponent } from '../pizza-preview/pizza-preview.component';
-import { OrderFormComponent } from '../order-form/order-form.component';
-import { OrderSummaryComponent } from '../order-summary/order-summary.component';
+import { OrderSummaryComponent } from '../../order/order-summary/order-summary.component';
 import { PizzaCreatorComponent } from '../pizza-creator/pizza-creator.component';
 
 @Component({
     selector: 'app-pizza-builder',
-    imports: [PizzaPreviewComponent, OrderFormComponent, PizzaCreatorComponent, OrderSummaryComponent],
+    imports: [PizzaPreviewComponent, PizzaCreatorComponent, OrderSummaryComponent],
     templateUrl: './pizza-builder.component.html',
-    styleUrl: './pizza-builder.component.scss'
+    styleUrl: './pizza-builder.component.scss',
 })
 export class PizzaBuilderComponent {
-  activePizza = 0;
-  showForm = false;
+    constructor(private router: Router) {}
 
-  goToOrderFormHandler() {
-    this.showForm = true;
-  }
-
-  createOrder() {
-  }
-
+    goToOrder() {
+        this.router.navigate(['order']);
+    }
 }

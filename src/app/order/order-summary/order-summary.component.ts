@@ -10,28 +10,14 @@ import { Pizza } from '../../store/order.models';
     selector: 'order-summary',
     imports: [CommonModule],
     templateUrl: './order-summary.component.html',
-    styleUrl: './order-summary.component.scss'
+    styleUrl: './order-summary.component.scss',
 })
 export class OrderSummaryComponent {
-    @Input() disabledContiniue = false;
-    @Output() goToOrderForm = new EventEmitter<any>();
-    @Output() goToPayment = new EventEmitter<any>();
     pizzas$: Observable<Pizza[]>;
     totalPrice$: Observable<number>;
-    private isShowForm = false;
 
     constructor(private store: Store) {
         this.pizzas$ = this.store.select(selectOrderItems);
         this.totalPrice$ = this.store.select(selectOrderTotalAmount);
-    }
-
-    goToForm() {
-        if(this.isShowForm) {
-            this.goToPayment.emit();
-        } else {
-            this.isShowForm = true;
-            this.goToOrderForm.emit();
-        }
-       
     }
 }
