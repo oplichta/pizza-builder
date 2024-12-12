@@ -21,6 +21,4 @@
         </div>
     </div>
     <div class="pizza-summary__total-price">Total: {{ totalPrice$ | async | currency: 'EUR' : 'symbol' }}</div>
-
-    <button  (click)="goToForm()" class="pizza-summary__button" [disabled]="disabledContiniue" >Continiue</button>
 </div>

@@ -4,23 +4,11 @@
 
     &-table-side,
     &-table {
-        width: 1110px;
-        transform: skewX(62deg);
-        position: absolute;
-        left: 310px;
-        height: 1100px;
-        z-index: 0;
-    }
-    &-table-side {
+        width: 100%;
+        height: auto;
+        transform: none;
+        left: 0;
         background: #2e3744;
-        top: 380px;
-        width: 1885px;
-        left: -500px;
-    }
-
-    &-table {
-        background: #3a424f;
-        top: 0;
     }
 
     .pizza {
@@ -381,9 +369,9 @@
     }
 
     .pizza {
-      padding-left: 15px;
-      margin-left: -10px;
-      background: #2e3744;
+        padding-left: 15px;
+        margin-left: -10px;
+        background: #2e3744;
     }
 
     .pizza-board {
@@ -392,7 +380,8 @@
         height: 310px !important;
         position: unset !important;
     }
-    .pizza-base, .pizza-ingredients  {
+    .pizza-base,
+    .pizza-ingredients {
         width: 310px !important;
         // width: 90vw !important;
         right: 160px !important;

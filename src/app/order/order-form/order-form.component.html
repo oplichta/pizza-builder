@@ -1,0 +1,29 @@
+<form [formGroup]="orderForm">
+    <h2>Enter your details</h2>
+    <div class="section">
+        @for (field of fields; track field.name) {
+            <div class="input">
+                <label>
+                    {{ field.label }} <span class="required">*</span>
+                    @if (orderForm.get(field.name)?.errors && orderForm.get(field.name)?.touched) {
+                        <span class="error">
+                            @if (orderForm.get(field.name)?.hasError('required')) {
+                                Field is required
+                            }
+                            @if (orderForm.get(field.name)?.hasError('minlength')) {
+                                Min of 3 characters
+                            }
+                            @if (orderForm.get(field.name)?.hasError('maxlength')) {
+                                Max of 50 characters
+                            }
+                            @if (orderForm.get(field.name)?.hasError('pattern')) {
+                                Type field in correct format
+                            }
+                        </span>
+                    }
+                </label>
+                <input [formControlName]="field.name" [type]="field.type" [placeholder]="field.placeholder" />
+            </div>
+        }
+    </div>
+</form>

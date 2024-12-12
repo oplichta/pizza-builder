@@ -25,8 +25,11 @@
             </div>
 
             <div class="pizza-creator__content" [class.pizza-creator__content--open]="(activePizzaId$ | async) === pizza.id">
-                <h3>Select the size <span class="required">*</span></h3>
-                <pizza-size> </pizza-size>
+                <h3>Select the size</h3>
+                <form [formGroup]="form">
+                    <pizza-size formControlName="pizzaSize" (change)="updatePizzaSize($event)"></pizza-size>
+                    <pre>Selected Pizza Size: {{ form.get('pizzaSize')?.value }}</pre>
+                </form>
 
                 <h3>Pick your ingredients</h3>
                 <pizza-ingredients></pizza-ingredients>
