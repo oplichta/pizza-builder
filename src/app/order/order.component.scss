@@ -29,6 +29,10 @@
         top: 250px;
         margin: 0;
         overflow-y: unset;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 90%;
     }
 }
 

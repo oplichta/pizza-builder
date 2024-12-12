@@ -53,8 +53,10 @@
 
 @media (max-width: 768px) {
     :host {
-        top: 250px;
         margin: 0;
         overflow-y: unset;
+    }
+    .input input{
+        width: 90vw;
     }
 }

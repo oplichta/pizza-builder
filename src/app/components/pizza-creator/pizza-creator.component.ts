@@ -16,10 +16,6 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
     styleUrl: './pizza-creator.component.scss',
 })
 export class PizzaCreatorComponent implements OnInit {
-    @Output() add = new EventEmitter<any>();
-    @Output() remove = new EventEmitter<any>();
-    @Output() toggle = new EventEmitter<number>();
-
     pizzas$: Observable<Pizza[]>;
     pizzaSizes = PizzaSize;
     activePizzaId$: Observable<number>;
@@ -37,7 +33,9 @@ export class PizzaCreatorComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.addPizza();
+        this.pizzas$.subscribe((pizzas) => {
+            if (pizzas.length === 0) this.addPizza();
+        });
     }
 
     addPizza() {
@@ -46,7 +44,6 @@ export class PizzaCreatorComponent implements OnInit {
             const pizza: Pizza = { id: pizzaId, size: this.pizzaSizes.Small, name: 'Pizza', price: 1, quantity: 1, ingredients: [] };
             this.store.dispatch(addPizza({ pizza }));
             this.store.dispatch(setActivePizza({ pizzaId }));
-            // this.form.get('pizzaSize')?.setValue(PizzaSize.Small);
         });
     }
 
@@ -63,7 +60,6 @@ export class PizzaCreatorComponent implements OnInit {
         this.pizzas$.pipe(take(1)).subscribe((pizzas) => {
             const pizzaId = pizzas[index].id;
             this.store.dispatch(setActivePizza({ pizzaId }));
-            this.toggle.emit(index);
         });
     }
 

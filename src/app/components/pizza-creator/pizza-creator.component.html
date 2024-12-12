@@ -17,10 +17,8 @@
                 ></i>
                 Pizza {{ i + 1 }}
 
-                <i class="fa fa-fw pizza-creator__status" [class.fa-check]="pizza.valid" [class.fa-times]="!pizza.valid"></i>
-
                 <!-- <div class="pizza-creator__delete" *ngIf="pizzas.length > 1" (click)="removePizza(i)">
-                    <i class="fa fa-trash fa-fw"></i>
+                    Remove pizza <img class="pizza-creator__icon-trash" src="/images/icons-trash.svg" alt="Delete pizza" />
                 </div> -->
             </div>
 
@@ -28,7 +26,6 @@
                 <h3>Select the size</h3>
                 <form [formGroup]="form">
                     <pizza-size formControlName="pizzaSize" (change)="updatePizzaSize($event)"></pizza-size>
-                    <pre>Selected Pizza Size: {{ form.get('pizzaSize')?.value }}</pre>
                 </form>
 
                 <h3>Pick your ingredients</h3>
