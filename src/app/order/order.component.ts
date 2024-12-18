@@ -3,6 +3,7 @@ import { PizzaPreviewComponent } from '../components/pizza-preview/pizza-preview
 import { OrderFormComponent } from './order-form/order-form.component';
 import { OrderSummaryComponent } from './order-summary/order-summary.component';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-order',
@@ -11,6 +12,7 @@ import { CommonModule } from '@angular/common';
     styleUrls: ['./order.component.scss'],
 })
 export class OrderComponent {
+    constructor(private router: Router) {}
     orderFormDataSignal = signal<{ formData: any; isValid: boolean }>({ formData: {}, isValid: false });
 
     orderDetails = computed(() => this.orderFormDataSignal().formData);
@@ -25,6 +27,6 @@ export class OrderComponent {
     }
 
     goToPayment() {
-        alert('Your order is on the way! :) ');
+       this.router.navigate(['delivery']);
     }
 }
