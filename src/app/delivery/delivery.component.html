@@ -1,0 +1,36 @@
+<div class="delivery-container">
+    
+    @if (!paymentCompleted && !delivered) {
+        <h1>Card Payment</h1>
+        <div>
+            @if (!loading) {
+                <button (click)="makePayment()">Pay with Card</button>
+            } @else {
+                <div class="loader-container">
+                    <app-loader [color]="'white'" [height]="'20px'"></app-loader>
+                </div>
+            }
+        </div>
+    } @else if (paymentCompleted && !delivered) {
+        <h1>Card Payment</h1>
+        <div class="timer-container">
+            <h2>Your order has been paid!</h2>
+            <h3>Delivery in:</h3>
+            <img class="pizza-delivery-image" src="/images/pizza-delivery.webp" alt="Pizza Delivery Person" />
+            <h1>{{ timerMinutes }}:{{ timerSeconds | number: '2.0' }}</h1>
+        </div>
+    }  @else if (delivered) {
+        
+        <div class="delivered-container">
+            <h1>Your order is delivered. Enjoy your meal!</h1>
+            <div class="pizza-size__plate">
+                <div class="pizza-size__pizza pizza-size__pizza--large">
+                    <div class="pizza-size__pizza__line"></div>
+                    <div class="pizza-size__pizza__line"></div>
+                    <div class="pizza-size__pizza__line"></div>
+                    <div class="pizza-size__pizza__line"></div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
