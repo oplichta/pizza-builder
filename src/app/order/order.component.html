@@ -1,7 +1,11 @@
 <div class="order-container">
     <pizza-preview></pizza-preview>
     <div class="order-form-summary-container">
-        <h1>Place Your Order</h1>
+        <div class="order-header">
+            <button class="back-btn" type="button" (click)="goToPizza()">Go back</button>
+            <h1>Place Your Order</h1>
+        </div>
+
         <order-form (formDataSignal)="formDataSignalHandler($event)"></order-form>
         <order-summary></order-summary>
         <button (click)="goToPayment()" class="pizza-continiue-button" [disabled]="!isFormValid()">Continiue</button>

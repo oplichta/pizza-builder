@@ -1,12 +1,13 @@
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-    <div>
-      <label>Login:</label>
-      <input formControlName="username" placeholder="Login" />
+<form class="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <button class="homepage-btn" (click)="goToHomePage()">Go to home page</button>
+    <div class="login-item">
+        <label for="username">Login: (for testing type: 'manager' )</label>
+        <input id="username" formControlName="username" placeholder="Login" />
     </div>
-    <div>
-      <label>Password:</label>
-      <input type="password" formControlName="password" placeholder="Password" />
+    <div class="login-item">
+        <label for="password">Password: (for testing type: 'Testmanager1&#64;' )</label>
+        <input id="password" type="password" formControlName="password" placeholder="Password" />
     </div>
-    <button type="submit">Login</button>
+    <button class="login-btn" type="submit">Login</button>
     <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
-  </form>
+</form>

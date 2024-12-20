@@ -8,6 +8,7 @@ import { selectActivePizzaId, selectOrderItems } from '../../store/order.selecto
 import { PizzaIngredientsComponent } from '../pizza-ingredients/pizza-ingredients.component';
 import { PizzaSizeComponent } from '../pizza-size/pizza-size.component';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'pizza-creator',
@@ -23,7 +24,8 @@ export class PizzaCreatorComponent implements OnInit {
 
     constructor(
         private store: Store,
-        private fb: FormBuilder
+        private fb: FormBuilder,
+        private router: Router
     ) {
         this.pizzas$ = this.store.select(selectOrderItems);
         this.activePizzaId$ = this.store.select(selectActivePizzaId);
@@ -41,7 +43,14 @@ export class PizzaCreatorComponent implements OnInit {
     addPizza() {
         this.pizzas$.pipe(take(1)).subscribe((pizzas) => {
             const pizzaId = pizzas.length;
-            const pizza: Pizza = { id: pizzaId, size: this.pizzaSizes.Small, name: 'Pizza', price: 1, quantity: 1, ingredients: [] };
+            const pizza: Pizza = {
+                id: pizzaId,
+                size: this.pizzaSizes.Small,
+                name: 'Pizza',
+                price: 1,
+                quantity: 1,
+                selectedIngredients: [],
+            };
             this.store.dispatch(addPizza({ pizza }));
             this.store.dispatch(setActivePizza({ pizzaId }));
         });

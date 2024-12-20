@@ -16,4 +16,8 @@ export class PizzaBuilderComponent {
     goToOrder() {
         this.router.navigate(['order']);
     }
+
+    managerLogin() {
+      this.router.navigate(['manager']);
+  }
 }

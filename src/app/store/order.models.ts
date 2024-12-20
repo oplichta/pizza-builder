@@ -1,3 +1,4 @@
+import { Ingredient } from "./ingredient.models";
 
 export enum PizzaSize {
     Small = 'small',
@@ -11,15 +12,8 @@ export interface Pizza {
     price: number;
     size: PizzaSize;
     quantity: number;
-    ingredients: Ingredient[];
+    selectedIngredients: Ingredient[];
     valid?: boolean;
-}
-
-export interface Ingredient {
-    id: number;
-    pizzaId: number;
-    name: string;
-    quantity: number;
 }
 
 export interface OrderState {

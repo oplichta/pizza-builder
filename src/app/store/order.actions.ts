@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
-import { Ingredient, Pizza, PizzaSize} from './order.models';
+import { Pizza, PizzaSize} from './order.models';
+import { Ingredient } from './ingredient.models';
 
 export const addPizza = createAction('[Order] Add Pizza', props<{ pizza: Pizza }>());
 export const removePizza = createAction('[Order] Remove Pizza', props<{ pizzaId: number }>());

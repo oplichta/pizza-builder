@@ -4,6 +4,21 @@
     display: flex;
     width: 100%;
 }
+.login-btn-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-right: 20px;
+}
+.login-btn {
+    background: none;
+    cursor: pointer;
+    color: #97C747;
+    border: none;
+    padding: 10px 15px;
+    font-size: 15px;
+    outline: none;
+  }
 
 .pizza-creator-container {
     background: #fff;
