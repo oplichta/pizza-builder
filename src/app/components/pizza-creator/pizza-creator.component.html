@@ -1,10 +1,7 @@
 <div class="pizza-creator">
     <h2>
         Choose your pizzas
-        <button class="button" type="button" (click)="addPizza()">
-            <i class="fa fa-plus"></i>
-            Add pizza
-        </button>
+        <button class="button" type="button" (click)="addPizza()">+ Add pizza</button>
     </h2>
 
     <div *ngIf="pizzas$ | async as pizzas">

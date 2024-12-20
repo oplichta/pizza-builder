@@ -3,9 +3,10 @@ import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { FormArray } from '@angular/forms';
 import { Observable, switchMap } from 'rxjs';
-import { Ingredient, Pizza } from '../../store/order.models';
+import { Pizza } from '../../store/order.models';
 import { Store } from '@ngrx/store';
 import { selectActivePizzaId, selectIngredientsOfPizza, selectOrderItems } from '../../store/order.selectors';
+import { Ingredient } from '../../store/ingredient.models';
 
 export const DROP_ANIMATION = trigger('drop', [
     transition(':enter', [

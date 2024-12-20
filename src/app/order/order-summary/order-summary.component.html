@@ -1,7 +1,7 @@
 <div class="pizza-summary">
     <h2>Order Summary</h2>
     <div class="pizza-summary__pizza" *ngFor="let pizza of pizzas$ | async">
-        <div *ngIf="pizza.size">
+        @if (pizza.size) {
             <h3>
                 {{ pizza.size | titlecase }} Pizza
                 <span class="pizza-summary__price">
@@ -10,15 +10,14 @@
             </h3>
 
             <div class="pizza-summary__ingredients">
-                <div class="pizza-summary__ingredient" *ngFor="let ingredient of pizza.ingredients">
-                    <i class="fa fa-plus"></i>
-                    {{ ingredient.name | titlecase }}
-                    <!-- <span class="pizza-summary__price">
-                        {{ ingredient.price | currency: 'EUR' : 'symbol' }}
-                    </span> -->
-                </div>
+                @for (ingredient of pizza.selectedIngredients; track ingredient) {
+                    <div class="pizza-summary__ingredient">
+                        <i class="fa fa-plus"></i>
+                        {{ ingredient.name | titlecase }}
+                    </div>
+                }
             </div>
-        </div>
+        }
     </div>
     <div class="pizza-summary__total-price">Total: {{ totalPrice$ | async | currency: 'EUR' : 'symbol' }}</div>
 </div>

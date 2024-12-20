@@ -26,6 +26,10 @@ export class OrderComponent {
         this.orderFormDataSignal.set(newData);
     }
 
+    goToPizza() {
+       this.router.navigate(['/']);
+    }
+
     goToPayment() {
        this.router.navigate(['delivery']);
     }

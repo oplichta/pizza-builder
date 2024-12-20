@@ -1,0 +1,18 @@
+<div class="ing-list-container">
+    <h2>Select visible ingredients</h2>
+    <div class="pizza-ingredients">
+        @for (ingredient of ingredients$ | async; track ingredient.id) {
+            <label class="pizza-ingredient" [class.pizza-ingredient--active]="ingredient.visible">
+                <input
+                    type="checkbox"
+                    [attr.name]="ingredient"
+                    [attr.value]="ingredient"
+                    (change)="onVisibilityChange(ingredient, $event)"
+                    [checked]="ingredient.visible"
+                />
+                <span class="pizza-ingredient__icon pizza-ingredient__icon--{{ ingredient.name }}"></span>
+                {{ ingredient.name | titlecase }}
+            </label>
+        }
+    </div>
+</div>

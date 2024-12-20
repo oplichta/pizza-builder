@@ -17,6 +17,37 @@
     max-width: 1400px;
 }
 
+.order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    right: 40px;
+}
+
+.order-header .back-btn  {
+    background: none;
+    cursor: pointer;
+    color: #97c747;
+    border: none;
+    padding: 10px 15px;
+    font-size: 15px;
+    outline: none;
+}
+
+.order-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+  }
+  
+  .order-header h1 {
+    margin:0;
+    flex-grow: 1;
+    text-align: center;
+  }
+
 @media (max-width: 768px) {
     .order-container {
         width: unset;

@@ -16,7 +16,7 @@ const prices = {
 
 const calculatePizzaPrice = (pizza: Pizza) => {
     const basePrice = prices[pizza.size]?.base || 0;
-    const ingredientsPrice = pizza.ingredients.reduce((sum, item) => sum + (prices[pizza.size]?.ingredients || 0) * item.quantity, 0);
+    const ingredientsPrice = pizza.selectedIngredients.reduce((sum, item) => sum + (prices[pizza.size]?.ingredients || 0), 0);
     return basePrice + ingredientsPrice;
 };
 
@@ -41,8 +41,8 @@ const _orderReducer = createReducer(
         const activePizzaId = state.activePizzaId;
         const updatedPizzas = state.pizzas.map((pizza) => {
             if (pizza.id === activePizzaId) {
-                const updateIngredients = [...pizza.ingredients, ingredient];
-                const updatedPizza = { ...pizza, ingredients: updateIngredients };
+                const updateIngredients = [...pizza.selectedIngredients, ingredient];
+                const updatedPizza = { ...pizza, selectedIngredients: updateIngredients };
                 const pizzaPrice = calculatePizzaPrice(updatedPizza);
                 return { ...updatedPizza, price: pizzaPrice };
             }
@@ -55,8 +55,8 @@ const _orderReducer = createReducer(
     on(removeIngredient, (state, { pizzaId, ingredientId }) => {
         const updatedPizzas = state.pizzas.map((pizza) => {
             if (pizza.id === pizzaId) {
-                const updatedItems = pizza.ingredients.filter((item) => item.id !== ingredientId);
-                const updatedPizza = { ...pizza, ingredients: updatedItems };
+                const updatedItems = pizza.selectedIngredients.filter((item) => item.id !== ingredientId);
+                const updatedPizza = { ...pizza, selectedIngredients: updatedItems };
                 const pizzaPrice = calculatePizzaPrice(updatedPizza);
                 return { ...updatedPizza, price: pizzaPrice };
             }
@@ -68,7 +68,7 @@ const _orderReducer = createReducer(
 
     on(updateItemQuantity, (state, { itemId, quantity }) => {
         const updatedPizzas = state.pizzas.map((pizza) => {
-            const updatedItems = pizza.ingredients.map((item) => (item.id === itemId ? { ...item, quantity } : item));
+            const updatedItems = pizza.selectedIngredients.map((item) => (item.id === itemId ? { ...item, quantity } : item));
             const updatedPizza = { ...pizza, items: updatedItems };
             const pizzaPrice = calculatePizzaPrice(updatedPizza);
             return { ...updatedPizza, price: pizzaPrice };

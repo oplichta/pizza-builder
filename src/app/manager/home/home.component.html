@@ -1,2 +1,9 @@
-<h1>Hallo, manager!</h1>
-<button (click)="logout()">Logout</button>
+<div class="home-container">
+    <div class="home-header">
+        <h1>Hallo manager!</h1>
+        <button class="logout-btn" (click)="logout()">Logout</button>
+    </div>
+    <div class="home-body">
+        <app-manager-ingredients-list></app-manager-ingredients-list>
+    </div>
+</div>
