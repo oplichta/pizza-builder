@@ -1,17 +1,17 @@
 :host,
 .pizza-size {
     display: flex;
-    width: 75%;
+    width: -webkit-fill-available;
 }
 
 .pizza-size {
     &__item {
-        margin: 0 0 20px;
+        display: flex;
         font-size: 16px;
         color: rgba(0, 0, 0, 0.7);
         cursor: pointer;
-        flex: 0 0 33%;
-        height: 80px;
+        flex: 1 1 33%;
+        height: 60px;
         position: relative;
         padding: 29px 0 0 100px;
 
@@ -164,16 +164,23 @@
     :host,
     .pizza-size {
         &__item {
-          height: min-content;
-          margin-left: -20px;
-        padding: 0px 0 0 65px;
+            height: min-content;
         }
     }
+}
 
-    .type-text.first {
-      margin-left: -4px;
-   }
-    .type-text {
-       margin-left: 15px;
+@media (max-width: 390px) {
+    :host,
+    .pizza-size {
+        &__item {
+            height: min-content;
+            margin: 0px;
+            padding: 3px;
+            flex-basis: 110px;
+        }
+
+        &--active {
+            font-weight: 600;
+        }
     }
 }

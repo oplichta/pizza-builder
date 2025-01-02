@@ -13,12 +13,12 @@
 .login-btn {
     background: none;
     cursor: pointer;
-    color: #97C747;
+    color: #97c747;
     border: none;
     padding: 10px 15px;
     font-size: 15px;
     outline: none;
-  }
+}
 
 .pizza-creator-container {
     background: #fff;
@@ -32,8 +32,10 @@
     max-width: 1400px;
 }
 @media (max-width: 768px) {
+    :host,
     .pizza-builder-container {
         width: unset;
+        height: unset;
         flex-direction: column;
         background: #2e3744;
         align-items: center;
@@ -43,6 +45,9 @@
         top: 250px;
         margin: 0;
         overflow-y: unset;
+        max-width: 92vw;
+        min-width: 365px;
+        padding: 8px;
     }
 }
 
