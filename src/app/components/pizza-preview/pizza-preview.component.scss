@@ -357,6 +357,7 @@
 }
 @media (max-width: 768px) {
     .pizza-preview {
+        width: 390px;
         &-table-side,
         &-table {
             width: 100%;
@@ -366,26 +367,19 @@
             height: auto;
             z-index: 0;
         }
-    }
+        .pizza-base {
+            right: 0px;
+        }
 
-    .pizza {
-        padding-left: 15px;
-        margin-left: -10px;
-        background: #2e3744;
-    }
+        .pizza {
+            width: 385px;
+            padding-left: 15px;
+            margin-left: -10px;
+            background: #2e3744;
+        }
 
-    .pizza-board {
-        width: 385px !important;
-        //  width: 100vw !important;
-        height: 310px !important;
-        position: unset !important;
-    }
-    .pizza-base,
-    .pizza-ingredients {
-        width: 310px !important;
-        // width: 90vw !important;
-        right: 160px !important;
-        // right: 50vw !important;
-        top: 15px !important;
+        .pizza-board {
+            display: none;
+        }
     }
 }
