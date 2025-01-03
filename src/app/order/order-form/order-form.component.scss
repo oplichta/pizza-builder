@@ -56,7 +56,23 @@
         margin: 0;
         overflow-y: unset;
     }
-    .input input{
-        width: 90vw;
+    .input {
+        input{
+            width: 80vw;
+        }
+    } 
+}
+
+@media (max-width: 390px) {
+    :host {
+        margin: 0;
+        overflow-y: unset;
     }
+    .input {
+        margin: 0px;
+        margin-bottom: 8px;
+        input{
+            width: 295px;
+        }
+    } 
 }
