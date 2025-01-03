@@ -38,7 +38,7 @@ export class PizzaSizeComponent implements ControlValueAccessor, OnInit {
     }
   
     private checkScreenSize(): void {
-      this.isMobileView = window.innerWidth < 391;
+      this.isMobileView = window.innerWidth < 400;
     }
 
     onChangeSize(value: PizzaSize) {
