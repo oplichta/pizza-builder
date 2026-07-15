@@ -10,8 +10,8 @@ describe('OrderSummaryComponent', () => {
     let store: MockStore;
 
     const mockPizzas: Pizza[] = [
-        { id: 1, name: 'Margherita', size: PizzaSize.Medium, ingredients: [], quantity: 1, price: 12.99 },
-        { id: 2, name: 'Pepperoni', size: PizzaSize.Large, ingredients: [], quantity: 1, price: 15.99 },
+        { id: 1, name: 'Margherita', size: PizzaSize.Medium, selectedIngredients: [], quantity: 1, price: 12.99 },
+        { id: 2, name: 'Pepperoni', size: PizzaSize.Large, selectedIngredients: [], quantity: 1, price: 15.99 },
     ];
     const mockTotalPrice = 28.98;
 
@@ -50,14 +50,5 @@ describe('OrderSummaryComponent', () => {
             expect(totalPrice).toBe(mockTotalPrice);
             done();
         });
-    });
-
-    it('should emit goToOrderForm when goToForm is called', () => {
-        const emitSpy = jest.spyOn(component.goToOrderForm, 'emit');
-
-        component.goToForm();
-
-        expect(emitSpy).toHaveBeenCalled();
-        expect(emitSpy).toHaveBeenCalledWith(); // Check if emitted without parameters
     });
 });

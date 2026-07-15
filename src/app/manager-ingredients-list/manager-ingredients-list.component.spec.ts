@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideMockStore } from '@ngrx/store/testing';
 
 import { ManagerIngredientsListComponent } from './manager-ingredients-list.component';
 
@@ -9,6 +10,9 @@ describe('ManagerIngredientsListComponent', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [ManagerIngredientsListComponent],
+            providers: [
+                provideMockStore({ initialState: {} })
+            ],
         }).compileComponents();
 
         fixture = TestBed.createComponent(ManagerIngredientsListComponent);

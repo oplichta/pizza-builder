@@ -40,7 +40,7 @@ describe('PizzaCreatorComponent', () => {
   });
 
   it('should add pizza on addPizza', () => {
-    const pizza: Pizza = { id: 0, size: PizzaSize.Small, name: 'Pizza', price: 1, quantity: 1, ingredients: [] };
+    const pizza: Pizza = { id: 0, size: PizzaSize.Small, name: 'Pizza', price: 1, quantity: 1, selectedIngredients: [] };
     store.overrideSelector(selectOrderItems, []);
     component.addPizza();
     expect(dispatchSpy).toHaveBeenCalledWith(addPizza({ pizza }));
@@ -48,7 +48,7 @@ describe('PizzaCreatorComponent', () => {
   });
 
   it('should remove pizza on removePizza', () => {
-    const pizza: Pizza = { id: 0, size: PizzaSize.Small, name: 'Pizza', price: 1, quantity: 1, ingredients: [] };
+    const pizza: Pizza = { id: 0, size: PizzaSize.Small, name: 'Pizza', price: 1, quantity: 1, selectedIngredients: [] };
     store.overrideSelector(selectOrderItems, [pizza]);
     component.removePizza(0);
     expect(dispatchSpy).toHaveBeenCalledWith(removePizza({ pizzaId: 0 }));
@@ -58,9 +58,9 @@ describe('PizzaCreatorComponent', () => {
  
   it('should change active pizza on togglePizza', () => {
     const pizzas: Pizza[] = [
-      { id: 0, size: PizzaSize.Small, name: 'Pizza 1', price: 1, quantity: 1, ingredients: [] },
-      { id: 1, size: PizzaSize.Medium, name: 'Pizza 2', price: 2, quantity: 1, ingredients: [] },
-      { id: 2, size: PizzaSize.Large, name: 'Pizza 3', price: 3, quantity: 1, ingredients: [] }
+      { id: 0, size: PizzaSize.Small, name: 'Pizza 1', price: 1, quantity: 1, selectedIngredients: [] },
+      { id: 1, size: PizzaSize.Medium, name: 'Pizza 2', price: 2, quantity: 1, selectedIngredients: [] },
+      { id: 2, size: PizzaSize.Large, name: 'Pizza 3', price: 3, quantity: 1, selectedIngredients: [] }
     ];
     store.overrideSelector(selectOrderItems, pizzas);
     component.togglePizza(2);
