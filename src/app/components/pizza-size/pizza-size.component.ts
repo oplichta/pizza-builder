@@ -1,11 +1,11 @@
-import { CommonModule } from '@angular/common';
+import { TitleCasePipe } from '@angular/common';
 import { Component, forwardRef, HostListener, OnInit } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { PizzaSize } from '../../store/order.models';
 
 @Component({
     selector: 'pizza-size',
-    imports: [CommonModule],
+    imports: [TitleCasePipe],
     templateUrl: './pizza-size.component.html',
     styleUrls: ['./pizza-size.component.scss'],
     providers: [

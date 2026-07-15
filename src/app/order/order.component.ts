@@ -2,12 +2,12 @@ import { Component, computed, signal } from '@angular/core';
 import { PizzaPreviewComponent } from '../components/pizza-preview/pizza-preview.component';
 import { OrderFormComponent } from './order-form/order-form.component';
 import { OrderSummaryComponent } from './order-summary/order-summary.component';
-import { CommonModule } from '@angular/common';
+
 import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-order',
-    imports: [CommonModule, PizzaPreviewComponent, OrderFormComponent, OrderSummaryComponent],
+    imports: [PizzaPreviewComponent, OrderFormComponent, OrderSummaryComponent],
     templateUrl: './order.component.html',
     styleUrls: ['./order.component.scss'],
 })
@@ -27,10 +27,10 @@ export class OrderComponent {
     }
 
     goToPizza() {
-       this.router.navigate(['/']);
+        this.router.navigate(['/']);
     }
 
     goToPayment() {
-       this.router.navigate(['delivery']);
+        this.router.navigate(['delivery']);
     }
 }

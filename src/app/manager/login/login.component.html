@@ -9,5 +9,7 @@
         <input id="password" type="password" formControlName="password" placeholder="Password" />
     </div>
     <button class="login-btn" type="submit">Login</button>
-    <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+    @if (errorMessage) {
+        <div class="error">{{ errorMessage }}</div>
+    }
 </form>

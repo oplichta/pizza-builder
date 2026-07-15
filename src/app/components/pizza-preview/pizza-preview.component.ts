@@ -1,5 +1,5 @@
 import { animate, style, transition, trigger } from '@angular/animations';
-import { CommonModule } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { FormArray } from '@angular/forms';
 import { Observable, switchMap } from 'rxjs';
@@ -21,7 +21,7 @@ export const DROP_ANIMATION = trigger('drop', [
 
 @Component({
     selector: 'pizza-preview',
-    imports: [CommonModule],
+    imports: [AsyncPipe],
     templateUrl: './pizza-preview.component.html',
     styleUrl: './pizza-preview.component.scss',
     animations: [DROP_ANIMATION]

@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { AsyncPipe, CurrencyPipe, TitleCasePipe } from '@angular/common';
 import { Component, EventEmitter, input, Input, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
@@ -8,7 +8,7 @@ import { Pizza } from '../../store/order.models';
 
 @Component({
     selector: 'order-summary',
-    imports: [CommonModule],
+    imports: [AsyncPipe, CurrencyPipe, TitleCasePipe],
     templateUrl: './order-summary.component.html',
     styleUrl: './order-summary.component.scss',
 })
