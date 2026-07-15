@@ -16,7 +16,10 @@
         <div class="timer-container">
             <h2>Your order has been paid!</h2>
             <h3>Delivery in:</h3>
-            <img class="pizza-delivery-image" src="/images/pizza-delivery.webp" alt="Pizza Delivery Person" />
+            <div #mapContainer class="delivery-map"></div>
+            @if (mapError) {
+                <p class="delivery-map__error">{{ mapError }}</p>
+            }
             <h1>{{ timerMinutes }}:{{ timerSeconds | number: '2.0' }}</h1>
         </div>
     }  @else if (delivered) {

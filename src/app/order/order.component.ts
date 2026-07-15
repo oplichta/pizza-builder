@@ -2,6 +2,7 @@ import { Component, computed, signal } from '@angular/core';
 import { PizzaPreviewComponent } from '../components/pizza-preview/pizza-preview.component';
 import { OrderFormComponent } from './order-form/order-form.component';
 import { OrderSummaryComponent } from './order-summary/order-summary.component';
+import { OrderDetailsService } from '../services/order-details.service';
 
 import { Router } from '@angular/router';
 
@@ -12,7 +13,7 @@ import { Router } from '@angular/router';
     styleUrls: ['./order.component.scss'],
 })
 export class OrderComponent {
-    constructor(private router: Router) {}
+    constructor(private router: Router, private orderDetailsService: OrderDetailsService) {}
     orderFormDataSignal = signal<{ formData: any; isValid: boolean }>({ formData: {}, isValid: false });
 
     orderDetails = computed(() => this.orderFormDataSignal().formData);
@@ -31,6 +32,7 @@ export class OrderComponent {
     }
 
     goToPayment() {
+        this.orderDetailsService.setOrderDetails(this.orderDetails());
         this.router.navigate(['delivery']);
     }
 }
