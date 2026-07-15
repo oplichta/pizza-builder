@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { AsyncPipe, TitleCasePipe } from '@angular/common';
 import { Component, forwardRef, inject } from '@angular/core';
 import { map, Observable, switchMap, take } from 'rxjs';
 import { Store } from '@ngrx/store';
@@ -10,7 +10,7 @@ import { loadIngredients } from '../../store/ingredient.actions';
 
 @Component({
     selector: 'pizza-ingredients',
-    imports: [CommonModule],
+    imports: [AsyncPipe, TitleCasePipe],
     templateUrl: './pizza-ingredients.component.html',
     styleUrl: './pizza-ingredients.component.scss',
 })

@@ -1,17 +1,21 @@
 <div class="pizza-preview">
     <div class="pizza-preview-table-side"></div>
     <div class="pizza-preview-table"></div>
-    <div class="pizza" [class.pizza--active]="activePizzaId === i" *ngFor="let pizza of pizzas$ | async; let i = index">
-        <div class="pizza-board"></div>
-        <div class="pizza-base"></div>
-        <div class="pizza-ingredients">
-            <div *ngFor="let ingredient of ingredients$ | async; let i = index" [style.zIndex]="i" @drop>
-                <div class="pizza-ingredient pizza-ingredient--{{ ingredient.name }}"></div>
-                <div class="pizza-ingredient pizza-ingredient--{{ ingredient.name }}"></div>
-                <div class="pizza-ingredient pizza-ingredient--{{ ingredient.name }}"></div>
-                <div class="pizza-ingredient pizza-ingredient--{{ ingredient.name }}"></div>
-                <div class="pizza-ingredient pizza-ingredient--{{ ingredient.name }}"></div>
+    @for (pizza of pizzas$ | async; track pizza; let i = $index) {
+        <div class="pizza" [class.pizza--active]="activePizzaId === i">
+            <div class="pizza-board"></div>
+            <div class="pizza-base"></div>
+            <div class="pizza-ingredients">
+                @for (ingredient of ingredients$ | async; track ingredient; let i = $index) {
+                    <div [style.zIndex]="i" @drop>
+                        <div class="pizza-ingredient pizza-ingredient--{{ ingredient.name }}"></div>
+                        <div class="pizza-ingredient pizza-ingredient--{{ ingredient.name }}"></div>
+                        <div class="pizza-ingredient pizza-ingredient--{{ ingredient.name }}"></div>
+                        <div class="pizza-ingredient pizza-ingredient--{{ ingredient.name }}"></div>
+                        <div class="pizza-ingredient pizza-ingredient--{{ ingredient.name }}"></div>
+                    </div>
+                }
             </div>
         </div>
-    </div>
+    }
 </div>

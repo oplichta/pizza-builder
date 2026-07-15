@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, take } from 'rxjs';
@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 
 @Component({
     selector: 'pizza-creator',
-    imports: [PizzaSizeComponent, CommonModule, PizzaIngredientsComponent, ReactiveFormsModule],
+    imports: [PizzaSizeComponent, AsyncPipe, PizzaIngredientsComponent, ReactiveFormsModule],
     templateUrl: './pizza-creator.component.html',
     styleUrl: './pizza-creator.component.scss',
 })

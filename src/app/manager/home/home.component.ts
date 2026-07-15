@@ -1,11 +1,10 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ManagerIngredientsListComponent } from '../../manager-ingredients-list/manager-ingredients-list.component';
 
 @Component({
     selector: 'manager-home',
-    imports: [CommonModule, ManagerIngredientsListComponent],
+    imports: [ManagerIngredientsListComponent],
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.scss'],
 })

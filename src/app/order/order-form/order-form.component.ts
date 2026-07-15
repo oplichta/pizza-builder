@@ -1,10 +1,9 @@
-import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, output, Output, signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
     selector: 'order-form',
-    imports: [CommonModule, ReactiveFormsModule],
+    imports: [ReactiveFormsModule],
     templateUrl: './order-form.component.html',
     styleUrl: './order-form.component.scss',
 })

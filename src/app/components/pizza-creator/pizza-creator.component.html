@@ -4,30 +4,31 @@
         <button class="button" type="button" (click)="addPizza()">+ Add pizza</button>
     </h2>
 
-    <div *ngIf="pizzas$ | async as pizzas">
-        <div *ngFor="let pizza of pizzas; let i = index">
-            <div class="pizza-creator__header" (click)="togglePizza(i)">
-                <i
-                    class="fa fa-fw pizza-creator__icon"
-                    [class.fa-chevron-down]="(activePizzaId$ | async) !== pizza.id"
-                    [class.fa-chevron-up]="(activePizzaId$ | async) === pizza.id"
-                ></i>
-                Pizza {{ i + 1 }}
-
-                <!-- <div class="pizza-creator__delete" *ngIf="pizzas.length > 1" (click)="removePizza(i)">
-                    Remove pizza <img class="pizza-creator__icon-trash" src="/images/icons-trash.svg" alt="Delete pizza" />
-                </div> -->
-            </div>
-
-            <div class="pizza-creator__content" [class.pizza-creator__content--open]="(activePizzaId$ | async) === pizza.id">
-                <h3>Select the size</h3>
-                <form [formGroup]="form">
-                    <pizza-size formControlName="pizzaSize" (change)="updatePizzaSize($event)"></pizza-size>
-                </form>
-
-                <h3>Pick your ingredients</h3>
-                <pizza-ingredients></pizza-ingredients>
-            </div>
+    @if (pizzas$ | async; as pizzas) {
+        <div>
+            @for (pizza of pizzas; track pizza; let i = $index) {
+                <div>
+                    <div class="pizza-creator__header" (click)="togglePizza(i)">
+                        <i
+                            class="fa fa-fw pizza-creator__icon"
+                            [class.fa-chevron-down]="(activePizzaId$ | async) !== pizza.id"
+                            [class.fa-chevron-up]="(activePizzaId$ | async) === pizza.id"
+                        ></i>
+                        Pizza {{ i + 1 }}
+                        <!-- <div class="pizza-creator__delete" *ngIf="pizzas.length > 1" (click)="removePizza(i)">
+            Remove pizza <img class="pizza-creator__icon-trash" src="/images/icons-trash.svg" alt="Delete pizza" />
+          </div> -->
+                    </div>
+                    <div class="pizza-creator__content" [class.pizza-creator__content--open]="(activePizzaId$ | async) === pizza.id">
+                        <h3>Select the size</h3>
+                        <form [formGroup]="form">
+                            <pizza-size formControlName="pizzaSize" (change)="updatePizzaSize($event)"></pizza-size>
+                        </form>
+                        <h3>Pick your ingredients</h3>
+                        <pizza-ingredients></pizza-ingredients>
+                    </div>
+                </div>
+            }
         </div>
-    </div>
+    }
 </div>
