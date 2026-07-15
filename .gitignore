@@ -40,3 +40,6 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+# Local secrets - copy enviroment.example.ts to enviroment.ts and fill in real values
+/enviroment.ts
