@@ -1,33 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { PizzaSizeComponent } from './pizza-size.component';
-import { updatePizzaSize } from '../../store/order.actions';
-import { selectOrderItems } from '../../store/order.selectors';
 import { PizzaSize } from '../../store/order.models';
-import { CommonModule } from '@angular/common';
-
-const initialState = { order: { items: [] } };
 
 describe('PizzaSizeComponent', () => {
   let component: PizzaSizeComponent;
   let fixture: ComponentFixture<PizzaSizeComponent>;
-  let store: MockStore;
-  let dispatchSpy: jest.SpyInstance;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CommonModule, PizzaSizeComponent],
-      providers: [
-        provideMockStore({ initialState })
-      ]
+      imports: [PizzaSizeComponent],
     })
     .compileComponents();
 
     fixture = TestBed.createComponent(PizzaSizeComponent);
     component = fixture.componentInstance;
-    store = TestBed.inject(MockStore);
-    dispatchSpy = jest.spyOn(store, 'dispatch');
-    store.overrideSelector(selectOrderItems, []);
     fixture.detectChanges();
   });
 
@@ -44,14 +30,28 @@ describe('PizzaSizeComponent', () => {
     ]);
   });
 
-  it('should update size on onChange', () => {
-    component.onChange(PizzaSize.Large);
+  it('should update value and notify the registered onChange callback', () => {
+    const onChangeSpy = jest.fn();
+    component.registerOnChange(onChangeSpy);
+
+    component.onChangeSize(PizzaSize.Large);
+
     expect(component.value).toBe(PizzaSize.Large);
-    expect(dispatchSpy).toHaveBeenCalledWith(updatePizzaSize({ size: PizzaSize.Large }));
+    expect(onChangeSpy).toHaveBeenCalledWith(PizzaSize.Large);
   });
 
-  it('should update focused size on onFocus', () => {
-    component.onFocus(PizzaSize.Medium);
-    expect(component.focused).toBe(PizzaSize.Medium);
+  it('should notify the registered onTouched callback on change', () => {
+    const onTouchedSpy = jest.fn();
+    component.registerOnTouched(onTouchedSpy);
+
+    component.onChangeSize(PizzaSize.Medium);
+
+    expect(onTouchedSpy).toHaveBeenCalled();
+  });
+
+  it('should write a value via writeValue', () => {
+    component.writeValue(PizzaSize.Large);
+
+    expect(component.value).toBe(PizzaSize.Large);
   });
 });

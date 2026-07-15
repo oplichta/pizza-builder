@@ -2,8 +2,6 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideMockStore, MockStore } from '@ngrx/store/testing';
 import { PizzaIngredientsComponent } from './pizza-ingredients.component';
 import { addIngredient, removeIngredient } from '../../store/order.actions';
-import { selectIngredientsOfPizza } from '../../store/order.selectors';
-import { CommonModule } from '@angular/common';
 import { of } from 'rxjs';
 
 const initialState = { order: { items: [] } };
@@ -16,7 +14,7 @@ describe('PizzaIngredientsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CommonModule, PizzaIngredientsComponent],
+      imports: [PizzaIngredientsComponent],
       providers: [
         provideMockStore({ initialState })
       ]
@@ -27,33 +25,32 @@ describe('PizzaIngredientsComponent', () => {
     component = fixture.componentInstance;
     store = TestBed.inject(MockStore);
     dispatchSpy = jest.spyOn(store, 'dispatch');
-    store.overrideSelector(selectIngredientsOfPizza(1), []);
     component.activePizzaId = 1;
-    component.activePizzaId$ = of(1); 
+    component.activePizzaId$ = of(1);
     fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-
-  it('should update ingredient on updateIngredient', () => {
-    const ingredientObj = { id: 1, name: 'bacon', quantity: 1, pizzaId: 1 };
-    component.updateIngredient('bacon');
-    component.ingredients$ = of([]);
-    fixture.detectChanges();
-    component.ingredients$.subscribe(ingredients => {
-      expect(ingredients).toContainEqual(ingredientObj);
-    });
   });
 
   afterEach(() => {
     dispatchSpy.mockClear();
   });
 
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('should populate ingredients with only visible ingredient names', () => {
+    component.ingredients$ = of([
+      { id: 1, name: 'bacon', pizzaId: 1, visible: true },
+      { id: 2, name: 'secret-sauce', pizzaId: 1, visible: false },
+    ]);
+
+    component.ngOnInit();
+
+    expect(component.ingredients).toEqual(['bacon']);
+  });
+
   it('should dispatch removeIngredient if ingredient already exists', () => {
-    component.activePizzaId$ = of(1);
-    component.ingredients$ = of([{ id: 1, name: 'cheese', quantity: 1, pizzaId: 1 }]);
+    component.selectedIngredients$ = of([{ id: 1, name: 'cheese', pizzaId: 1, visible: true }]);
 
     component.updateIngredient('cheese');
 
@@ -64,15 +61,13 @@ describe('PizzaIngredientsComponent', () => {
   });
 
   it('should dispatch addIngredient if ingredient does not exist', () => {
-    component.activePizzaId$ = of(1);
-    component.ingredients$ = of([{ id: 1, name: 'pepperoni', quantity: 1, pizzaId: 1 }]);
+    component.selectedIngredients$ = of([{ id: 1, name: 'pepperoni', pizzaId: 1, visible: true }]);
 
     component.updateIngredient('mushroom');
 
-    // Expect addIngredient to be dispatched with new ingredient
     expect(dispatchSpy).toHaveBeenCalledWith(
       addIngredient({
-        ingredient: { id: 2, name: 'mushroom', quantity: 1, pizzaId: 1 },
+        ingredient: { id: 2, name: 'mushroom', pizzaId: 1, visible: true },
       })
     );
     expect(dispatchSpy).not.toHaveBeenCalledWith(removeIngredient(expect.anything()));
