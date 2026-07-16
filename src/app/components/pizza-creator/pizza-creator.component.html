@@ -16,7 +16,7 @@
                         ></i>
                         Pizza {{ i + 1 }}
                         <!-- <div class="pizza-creator__delete" *ngIf="pizzas.length > 1" (click)="removePizza(i)">
-            Remove pizza <img class="pizza-creator__icon-trash" src="/images/icons-trash.svg" alt="Delete pizza" />
+            Remove pizza <img class="pizza-creator__icon-trash" src="/pizza-builder/images/icons-trash.svg" alt="Delete pizza" />
           </div> -->
                     </div>
                     <div class="pizza-creator__content" [class.pizza-creator__content--open]="(activePizzaId$ | async) === pizza.id">
