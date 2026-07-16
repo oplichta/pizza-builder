@@ -10,6 +10,8 @@ import { LoaderComponent } from '../components/loader/loader.component';
 import { environment } from '../../../enviroment';
 
 const ROUTE_DURATION_MS = 60000;
+// Grace period before the courier leaves the pizzeria, so the route is visible before it moves.
+const COURIER_START_DELAY_MS = 5000;
 // Demo fallback used when /delivery is opened directly, without going through the order form first.
 const FALLBACK_ADDRESS = 'Plac Defilad 1, 00-901';
 
@@ -112,13 +114,13 @@ export class DeliveryComponent implements OnInit, OnDestroy {
   }
 
   private geocodeAddress(address: string) {
-    const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(address)}.json`;
+    const url = 'https://api.mapbox.com/search/geocode/v6/forward';
     return this.http
       .get<any>(url, {
-        params: { access_token: environment.mapboxAccessToken, country: 'PL', limit: '1' },
+        params: { q: address, access_token: environment.mapboxAccessToken, country: 'PL', limit: '1' },
       })
       .pipe(
-        map((res) => (res.features?.[0]?.center as [number, number]) ?? null),
+        map((res) => (res.features?.[0]?.geometry?.coordinates as [number, number]) ?? null),
         catchError(() => of(null))
       );
   }
@@ -183,7 +185,9 @@ export class DeliveryComponent implements OnInit, OnDestroy {
     }
     this.courierMarker = new mapboxgl.Marker({ color: '#1B98E0' }).setLngLat(coordinates[0]).addTo(this.map);
 
-    const startTime = performance.now();
+    // Offset the clock by the delay: progress stays clamped at 0 (courier idle at the origin) until
+    // the grace period elapses, then it animates over ROUTE_DURATION_MS.
+    const startTime = performance.now() + COURIER_START_DELAY_MS;
     const step = (now: number) => {
       const progress = Math.min(Math.max((now - startTime) / ROUTE_DURATION_MS, 0), 1);
       const index = Math.floor(progress * (coordinates.length - 1));

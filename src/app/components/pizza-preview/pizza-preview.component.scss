@@ -24,7 +24,7 @@
         }
 
         &-board {
-            background: url(/images/board.svg) no-repeat 0 20px;
+            background: url(/pizza-builder/images/board.svg) no-repeat 0 20px;
             background-size: contain;
             width: 500px;
             height: 342px;
@@ -35,7 +35,7 @@
         }
 
         &-base {
-            background: url(/images/base.svg) no-repeat;
+            background: url(/pizza-builder/images/base.svg) no-repeat;
             background-size: contain;
             width: 390px;
             height: 322px;
@@ -60,7 +60,7 @@
             background-size: contain;
 
             &--anchovy {
-                background-image: url(/images/anchovy.svg);
+                background-image: url(/pizza-builder/images/anchovy.svg);
                 width: 51px;
                 height: 37px;
 
@@ -82,7 +82,7 @@
                 }
             }
             &--bacon {
-                background-image: url(/images/bacon.svg);
+                background-image: url(/pizza-builder/images/bacon.svg);
                 width: 56px;
                 height: 31px;
 
@@ -108,7 +108,7 @@
                 }
             }
             &--basil {
-                background-image: url(/images/basil.svg);
+                background-image: url(/pizza-builder/images/basil.svg);
                 width: 46px;
                 height: 32px;
 
@@ -130,7 +130,7 @@
                 }
             }
             &--chili {
-                background-image: url(/images/chili.svg);
+                background-image: url(/pizza-builder/images/chili.svg);
                 width: 63px;
                 height: 35px;
 
@@ -156,7 +156,7 @@
                 }
             }
             &--mozzarella {
-                background-image: url(/images/mozzarella.svg);
+                background-image: url(/pizza-builder/images/mozzarella.svg);
                 width: 46px;
                 height: 32px;
 
@@ -178,7 +178,7 @@
                 }
             }
             &--mushroom {
-                background-image: url(/images/mushroom.svg);
+                background-image: url(/pizza-builder/images/mushroom.svg);
                 width: 45px;
                 height: 26px;
 
@@ -204,7 +204,7 @@
                 }
             }
             &--olive {
-                background-image: url(/images/olive.svg);
+                background-image: url(/pizza-builder/images/olive.svg);
                 width: 45px;
                 height: 26px;
 
@@ -229,7 +229,7 @@
                 }
             }
             &--onion {
-                background-image: url(/images/onion.svg);
+                background-image: url(/pizza-builder/images/onion.svg);
                 width: 57px;
                 height: 36px;
 
@@ -254,7 +254,7 @@
                 }
             }
             &--pepper {
-                background-image: url(/images/pepper.svg);
+                background-image: url(/pizza-builder/images/pepper.svg);
                 width: 57px;
                 height: 36px;
 
@@ -280,7 +280,7 @@
                 }
             }
             &--pepperoni {
-                background-image: url(/images/pepperoni.svg);
+                background-image: url(/pizza-builder/images/pepperoni.svg);
                 width: 57px;
                 height: 36px;
 
@@ -306,7 +306,7 @@
                 }
             }
             &--sweetcorn {
-                background-image: url(/images/sweetcorn.svg);
+                background-image: url(/pizza-builder/images/sweetcorn.svg);
                 width: 57px;
                 height: 36px;
 
@@ -328,7 +328,7 @@
                 }
             }
             &--tomato {
-                background-image: url(/images/tomato.svg);
+                background-image: url(/pizza-builder/images/tomato.svg);
                 width: 57px;
                 height: 36px;
 

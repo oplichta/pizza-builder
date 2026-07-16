@@ -21,12 +21,13 @@ export class OrderFormComponent {
     constructor(private fb: FormBuilder) {}
 
     ngOnInit() {
+        // Fields are seeded with sample data so the demo can be walked through without typing.
         this.orderForm = this.fb.group({
-            name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
-            email: ['', [Validators.required, Validators.email]],
-            phone: ['', [Validators.required, Validators.pattern(/^\+\d{1,3}(\s?\d{3}){3}$/)]],
-            address: ['', [Validators.required, Validators.minLength(3)]],
-            postcode: ['', [Validators.required, Validators.pattern(/^\d{2}-\d{3}$/)]],
+            name: ['Jan Kowalski', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
+            email: ['jan.kowalski@kowalski-test.pl', [Validators.required, Validators.email]],
+            phone: ['+48 123 456 789', [Validators.required, Validators.pattern(/^\+\d{1,3}(\s?\d{3}){3}$/)]],
+            address: ['aleja Grunwaldzka 129, Gdańsk', [Validators.required, Validators.minLength(3)]],
+            postcode: ['80-244', [Validators.required, Validators.pattern(/^\d{2}-\d{3}$/)]],
         });
         // Listen for changes in the form and update the signal
         this.orderForm.valueChanges.subscribe(() => {
@@ -34,6 +35,12 @@ export class OrderFormComponent {
                 formData: this.orderForm.value,
                 isValid: this.orderForm.valid,
             });
+        });
+        // valueChanges doesn't fire for the seeded values, so emit them once up front to let the
+        // parent's validity gate (the Continue button) reflect the pre-filled demo data.
+        this.formDataSignal.emit({
+            formData: this.orderForm.value,
+            isValid: this.orderForm.valid,
         });
     }
 }
