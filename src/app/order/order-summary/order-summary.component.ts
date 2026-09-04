@@ -2,7 +2,7 @@ import { AsyncPipe, CurrencyPipe, TitleCasePipe } from '@angular/common';
 import { Component, EventEmitter, input, Input, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { selectOrderItems, selectOrderTotalAmount } from '../../store/order.selectors';
+import { selectDiscountAmount, selectFinalTotal, selectOrderItems, selectOrderTotalAmount } from '../../store/order.selectors';
 import { Observable } from 'rxjs';
 import { Pizza } from '../../store/order.models';
 
@@ -15,9 +15,13 @@ import { Pizza } from '../../store/order.models';
 export class OrderSummaryComponent {
     pizzas$: Observable<Pizza[]>;
     totalPrice$: Observable<number>;
+    discount$: Observable<number>;
+    finalTotal$: Observable<number>;
 
     constructor(private store: Store) {
         this.pizzas$ = this.store.select(selectOrderItems);
         this.totalPrice$ = this.store.select(selectOrderTotalAmount);
+        this.discount$ = this.store.select(selectDiscountAmount);
+        this.finalTotal$ = this.store.select(selectFinalTotal);
     }
 }

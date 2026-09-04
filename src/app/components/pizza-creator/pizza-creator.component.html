@@ -6,7 +6,7 @@
 
     @if (pizzas$ | async; as pizzas) {
         <div>
-            @for (pizza of pizzas; track pizza; let i = $index) {
+            @for (pizza of pizzas; track pizza.id; let i = $index) {
                 <div>
                     <div class="pizza-creator__header" (click)="togglePizza(i)">
                         <i

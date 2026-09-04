@@ -13,30 +13,70 @@
     max-width: 1400px;
 }
 
+.payment-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    width: 100%;
+}
+
+.payment-button-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 h1 {
-    font-size: 2rem;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 40px;
+    text-align: center;
+    color: #1a1a1a;
+}
+
+h2 {
+    font-size: 1.5rem;
+    color: #1a1a1a;
+    margin-bottom: 20px;
 }
 
 .loader-container {
-    height: 38px;
-    width: 140px;
+    height: 56px;
+    width: 200px;
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: #4caf50;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
 }
 
 button {
-    padding: 10px 20px;
-    font-size: 1rem;
+    padding: 16px 48px;
+    font-size: 1.1rem;
+    font-weight: 600;
     background-color: #4caf50;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+    transition: all 200ms ease;
+
+    &:hover {
+        background-color: #45a049;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(76, 175, 80, 0.4);
+    }
+
+    &:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
+    }
 }
 
 .timer-container {

@@ -1,6 +1,6 @@
 <div class="pizza-summary">
     <h2>Order Summary</h2>
-    @for (pizza of pizzas$ | async; track pizza) {
+    @for (pizza of pizzas$ | async; track pizza.id) {
         <div class="pizza-summary__pizza">
             @if (pizza.size) {
                 <h3>
@@ -10,7 +10,7 @@
                     </span>
                 </h3>
                 <div class="pizza-summary__ingredients">
-                    @for (ingredient of pizza.selectedIngredients; track ingredient) {
+                    @for (ingredient of pizza.selectedIngredients; track ingredient.id) {
                         <div class="pizza-summary__ingredient">
                             <i class="fa fa-plus"></i>
                             {{ ingredient.name | titlecase }}
@@ -21,4 +21,9 @@
         </div>
     }
     <div class="pizza-summary__total-price">Total: {{ totalPrice$ | async | currency: 'EUR' : 'symbol' }}</div>
+
+    @if (discount$ | async; as discount) {
+        <div class="pizza-summary__discount">Discount: −{{ discount | currency: 'EUR' : 'symbol' }}</div>
+        <div class="pizza-summary__final-price">Total: {{ finalTotal$ | async | currency: 'EUR' : 'symbol' }}</div>
+    }
 </div>

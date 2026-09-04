@@ -10,3 +10,10 @@ export const updateItemQuantity = createAction('[Order] Update Item Quantity', p
 export const clearOrder = createAction('[Order] Clear Order');
 export const setActivePizza = createAction('[Order] Set Active Pizza', props<{ pizzaId: number }>());
 export const updatePizzaSize = createAction('[Order] Update Pizza Size', props<{ size: PizzaSize }>());
+
+export const checkPromoCode = createAction('[[Promo Form] Check Promo Code', props<{ code: string }>());
+export const checkPromoCodeSuccess = createAction('[Promo API] Promo Code OK', props<{ code: string, percent: number }>());
+export const checkPromoCodeFailure = createAction('[Promo API] Promo Code Fail', props<{ code: string }>());
+export const clearPromoCode = createAction('[Promo Form] Clear Promo Code');
+
+

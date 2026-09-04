@@ -13,7 +13,7 @@ const ROUTE_DURATION_MS = 60000;
 // Grace period before the courier leaves the pizzeria, so the route is visible before it moves.
 const COURIER_START_DELAY_MS = 5000;
 // Demo fallback used when /delivery is opened directly, without going through the order form first.
-const FALLBACK_ADDRESS = 'Plac Defilad 1, 00-901';
+const FALLBACK_ADDRESS = 'aleja Grunwaldzka 129, Gdańsk 80-244';
 
 // Angular's esbuild-based builder can't bundle mapbox-gl's blob-based worker (a known, still-open
 // upstream issue: angular/angular-cli#27378, mapbox/mapbox-gl-js#13131). Pointing workerUrl at the
