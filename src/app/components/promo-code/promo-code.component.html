@@ -1,0 +1,21 @@
+<div class="promo" [class]="statusClass()">
+    <label class="promo__label" for="promo-input">Promo Code</label>
+
+    <div class="promo__row">
+        <input
+            id="promo-input"
+            class="promo__input"
+            type="text"
+            placeholder="np. PIZZA20"
+            autocomplete="off"
+            [value]="promoCode()"
+            (input)="promoCode.set($any($event.target).value)"
+        />
+
+        @if (isChecking()) {
+            <app-loader height="20px" color="#1a98e1" />
+        }
+    </div>
+
+    <p class="promo__message">{{ message() }}</p>
+</div>

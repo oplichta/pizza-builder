@@ -1,5 +1,5 @@
 import { createSelector, createFeatureSelector } from '@ngrx/store';
-import { OrderState, Pizza } from './order.models';
+import { OrderState, Pizza, PromoState } from './order.models';
 
 export const selectOrderState = createFeatureSelector<OrderState>('order');
 export const selectOrderItems = createSelector(selectOrderState, (state: OrderState) => state.pizzas);
@@ -9,3 +9,7 @@ export const selectIngredientsOfPizza = (pizzaId: number) =>
     createSelector(selectPizzaById(pizzaId), (pizza: Pizza | undefined) => (pizza ? pizza.selectedIngredients : []));
 export const selectOrderTotalAmount = createSelector(selectOrderState, (state: OrderState) => state.totalAmount);
 export const selectActivePizzaId = createSelector(selectOrderState, (state: OrderState) => state.activePizzaId);
+
+export const selectPromo = createSelector(selectOrderState, (state: OrderState) => state.promo);
+export const selectDiscountAmount = createSelector(selectOrderTotalAmount, selectPromo, (total: number, promo: PromoState) => (promo.status === 'valid' ? total * promo.percent /100 : 0));
+export const selectFinalTotal = createSelector(selectOrderTotalAmount, selectDiscountAmount, (total, discount) => (total-discount));

@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideMockStore } from '@ngrx/store/testing';
 
 import { OrderComponent } from './order.component';
+import { initialOrderState } from '../store/order.reducer';
 
 describe('OrderComponent', () => {
     let component: OrderComponent;
@@ -11,7 +12,9 @@ describe('OrderComponent', () => {
         await TestBed.configureTestingModule({
             imports: [OrderComponent],
             providers: [
-                provideMockStore({ initialState: {} })
+                // Stan mocka musi miec ksztalt prawdziwego stanu - inaczej kazdy selektor
+                // siegajacy po state.order wywala sie na undefined.
+                provideMockStore({ initialState: { order: initialOrderState } }),
             ],
         }).compileComponents();
 

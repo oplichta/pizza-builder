@@ -1,10 +1,14 @@
 import { createReducer, on } from '@ngrx/store';
-import { addIngredient, removeIngredient, updateItemQuantity, clearOrder, addPizza, removePizza, updatePizzaSize, setActivePizza } from './order.actions';
-import { OrderState, Pizza, PizzaSize } from './order.models';
+import { addIngredient, removeIngredient, updateItemQuantity, clearOrder, addPizza, removePizza,
+        updatePizzaSize, setActivePizza, checkPromoCode, checkPromoCodeSuccess, checkPromoCodeFailure,
+        clearPromoCode } from './order.actions';
+import { OrderState, Pizza, PizzaSize, PromoState } from './order.models';
 
+export const initialPromoState: PromoState = { code: null, percent: 0, status: 'idle' };
 export const initialOrderState: OrderState = {
     pizzas: [],
     activePizzaId: 0,
+    promo: initialPromoState,
     totalAmount: 0,
 };
 
@@ -93,7 +97,23 @@ const _orderReducer = createReducer(
 
     on(setActivePizza, (state, { pizzaId }) => ({ ...state, activePizzaId: pizzaId })),
 
-    on(clearOrder, (state) => ({ ...state, pizzaItems: [], totalAmount: 0 }))
+    on(clearOrder, (state) => ({ ...state, pizzaItems: [], totalAmount: 0 })),
+
+    on(checkPromoCode, (state, { code }) => {
+        return { ...state, promo: { code, percent: 0, status: 'checking' } };
+    }),
+   
+    on(checkPromoCodeSuccess, (state, { code, percent }) => {
+         return { ...state, promo: { code, percent, status: 'valid' } };
+    }),
+    
+    on(checkPromoCodeFailure, (state, { code }) => {
+         return { ...state, promo: { code, percent: 0, status: 'invalid' } };
+    }),
+   
+    on(clearPromoCode, (state) => {
+          return { ...state, promo: initialPromoState };
+    }),
 );
 
 export function orderReducer(state: any, action: any) {

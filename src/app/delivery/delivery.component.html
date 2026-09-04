@@ -1,15 +1,17 @@
 <div class="delivery-container">
     
     @if (!paymentCompleted && !delivered) {
-        <h1>Card Payment</h1>
-        <div>
-            @if (!loading) {
-                <button (click)="makePayment()">Pay with Card</button>
-            } @else {
-                <div class="loader-container">
-                    <app-loader [color]="'white'" [height]="'20px'"></app-loader>
-                </div>
-            }
+        <div class="payment-section">
+            <h1>Card Payment</h1>
+            <div class="payment-button-wrapper">
+                @if (!loading) {
+                    <button (click)="makePayment()">Pay with Card</button>
+                } @else {
+                    <div class="loader-container">
+                        <app-loader [color]="'white'" [height]="'20px'"></app-loader>
+                    </div>
+                }
+            </div>
         </div>
     } @else if (paymentCompleted && !delivered) {
         <h1>Card Payment</h1>

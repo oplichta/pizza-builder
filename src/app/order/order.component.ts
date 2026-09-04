@@ -5,10 +5,11 @@ import { OrderSummaryComponent } from './order-summary/order-summary.component';
 import { OrderDetailsService } from '../services/order-details.service';
 
 import { Router } from '@angular/router';
+import { PromoCodeComponent } from '../components/promo-code/promo-code.component';
 
 @Component({
     selector: 'app-order',
-    imports: [PizzaPreviewComponent, OrderFormComponent, OrderSummaryComponent],
+    imports: [PizzaPreviewComponent, OrderFormComponent, OrderSummaryComponent, PromoCodeComponent],
     templateUrl: './order.component.html',
     styleUrls: ['./order.component.scss'],
 })

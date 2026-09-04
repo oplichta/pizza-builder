@@ -1,12 +1,12 @@
 <div class="pizza-preview">
     <div class="pizza-preview-table-side"></div>
     <div class="pizza-preview-table"></div>
-    @for (pizza of pizzas$ | async; track pizza; let i = $index) {
+    @for (pizza of pizzas$ | async; track pizza.id; let i = $index) {
         <div class="pizza" [class.pizza--active]="activePizzaId === i">
             <div class="pizza-board"></div>
             <div class="pizza-base"></div>
             <div class="pizza-ingredients">
-                @for (ingredient of ingredients$ | async; track ingredient; let i = $index) {
+                @for (ingredient of ingredients$ | async; track ingredient.id; let i = $index) {
                     <div [style.zIndex]="i" @drop>
                         <div class="pizza-ingredient pizza-ingredient--{{ ingredient.name }}"></div>
                         <div class="pizza-ingredient pizza-ingredient--{{ ingredient.name }}"></div>

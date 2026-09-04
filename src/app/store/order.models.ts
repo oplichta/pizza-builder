@@ -19,5 +19,12 @@ export interface Pizza {
 export interface OrderState {
     pizzas: Pizza[];
     activePizzaId: number;
+    promo: PromoState;
     totalAmount: number;
+}
+
+export interface PromoState {
+    code: string | null;
+    percent: number;
+    status: 'idle' | 'checking' | 'valid' | 'invalid';
 }

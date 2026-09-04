@@ -1,0 +1,90 @@
+:host {
+    width: 100%;
+}
+
+.promo {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin: 16px 0;
+
+    &__label {
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: rgba(0, 0, 0, 0.6);
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    &__row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    &__input {
+        width: 40vw;
+        padding: 10px 15px;
+        font-size: 18px;
+        text-transform: uppercase;
+        border: 1px solid #d7d7e7;
+        border-radius: 2px;
+        outline: none;
+        box-shadow: 0 3px 5px rgba(0, 0, 0, 0.02);
+        font-family: inherit;
+        color: rgba(0, 0, 0, 0.8);
+        transition: border-color 150ms ease;
+
+        &:focus {
+            border-color: #1a98e1;
+        }
+
+        &::placeholder {
+            text-transform: none;
+            color: rgba(0, 0, 0, 0.35);
+        }
+    }
+
+    &__message {
+        font-size: 14px;
+        min-height: 18px;
+        color: rgba(0, 0, 0, 0.55);
+    }
+
+    // Single modifier on the container controls both the border and the message color,
+    // so in the template it's enough to read statusClass() once.
+    &--ok {
+        .promo__input {
+            border-color: #4caf50;
+        }
+        .promo__message {
+            color: #4caf50;
+        }
+    }
+
+    &--error {
+        .promo__input {
+            border-color: #9a2f17;
+        }
+        .promo__message {
+            color: #9a2f17;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .promo {
+        padding: 0 30px;
+    }
+
+    .promo__input {
+        max-width: none;
+    }
+}
+
+@media (max-width: 390px) {
+    .promo__input {
+        max-width: 295px;
+    }
+}

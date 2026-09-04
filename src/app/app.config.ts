@@ -13,6 +13,7 @@ import { routes } from './app.routes';
 import { IngredientEffects } from './store/ingredient.effects';
 import { ingredientReducer } from './store/ingredient.reducer';
 import { orderReducer } from './store/order.reducer';
+import { PromoEffects } from './store/promo.effects';
 
 export const appConfig: ApplicationConfig = {
     providers: [
@@ -21,7 +22,7 @@ export const appConfig: ApplicationConfig = {
         provideHttpClient(),
         provideStore({ ingredient: ingredientReducer, order: orderReducer }),
         provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
-        provideEffects(IngredientEffects),
+        provideEffects(IngredientEffects, PromoEffects),
         provideAnimations(),
         provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
         provideFirestore(() => getFirestore()),
