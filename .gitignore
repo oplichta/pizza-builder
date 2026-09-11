@@ -46,6 +46,9 @@ Thumbs.db
 # as a placeholder) - see the "Configuration" section in README.md. Real secrets live in .env.
 /.env
 
+# Deploy-time override holding the real Mapbox token; copy enviroment.local.example.ts to create it
+/enviroment.local.ts
+
 # server/ is tracked on the nestjs-backend branch only — on other branches it's just
 # leftover node_modules/dist/.env from switching back and forth, not real changes here
 /server

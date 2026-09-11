@@ -94,7 +94,7 @@ A Firebase web API key identifies a project — it isn't a credential. It ships 
 
 Here, Firestore is a zero-setup data source for the demo, and it's being replaced by the NestJS API described below — which is where authentication and server-side authorisation will live. Genuine secrets never go in this file; those belong in `.env`, which is gitignored.
 
-The Mapbox token is the one value left as a placeholder, so the repo never spends someone else's API quota. It's a public `pk.` token and only the delivery map needs it.
+The Mapbox token is handled differently, and deliberately so. `enviroment.ts` ships a placeholder; the real `pk.` token lives in `enviroment.local.ts`, which is gitignored and swapped in by the `deploy` build configuration via Angular's `fileReplacements`. A client-side map token is public the moment it reaches a browser — the URL restriction on it is what actually protects it — but keeping it out of the repository avoids the automated scanners that trawl public repos for credentials. Copy `enviroment.local.example.ts` to set it up; if the file is missing, the deploy build fails instead of silently publishing a dead map.
 
 ---
 
@@ -109,7 +109,7 @@ npm start          # http://localhost:4200
 
 That's it — the committed Firebase config backs the toppings list, so the builder, ordering and manager panel all work immediately.
 
-**For the delivery map** you need your own free Mapbox token: grab one at [account.mapbox.com](https://account.mapbox.com/access-tokens/) and drop it into `mapboxAccessToken` in `enviroment.ts`. Every other screen works without it.
+**For the delivery map** you need your own free Mapbox token: grab one at [account.mapbox.com](https://account.mapbox.com/access-tokens/) and drop it into `mapboxAccessToken` in `enviroment.ts`. Every other screen works without it. (For deployments the token comes from `enviroment.local.ts` instead — see [Configuration](#configuration).)
 
 **To use your own Firebase project**, copy `enviroment.example.ts` over `enviroment.ts`. Your Firestore needs an `ingredients` collection of `{ name: string, visible: boolean, pizzaId: number }` documents, where `name` matches an SVG in `public/images/` — `mozzarella`, `pepperoni`, `tomato`, `onion`, `basil`, `chili`, `mushroom`, `anchovy`, `sweetcorn`, `bacon`, `prawn`, `olive`, `pepper`. Without that collection the builder renders an empty topping list.
 
@@ -129,8 +129,10 @@ Coverage focuses on component logic and store integration — dispatching the ri
 ## Deployment
 
 ```bash
-npm run deploy         # builds and pushes dist/ to GitHub Pages
+npm run deploy         # or: ng deploy
 ```
+
+Deployment goes through [`angular-cli-ghpages`](https://github.com/angular-schule/angular-cli-ghpages), registered as the project's `deploy` builder. It runs the `production,deploy` build — which swaps in the real Mapbox token from the gitignored `enviroment.local.ts` — then pushes `dist/pizza-builder/browser` to the `gh-pages` branch, adding the `404.html` that GitHub Pages needs for client-side routing.
 
 The build sets `baseHref: /pizza-builder/` in `angular.json`. If you fork this under a different repository name, change it there or every asset 404s.
 
