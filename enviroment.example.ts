@@ -1,3 +1,11 @@
+// Template for pointing the app at your OWN Firebase project.
+//
+// You do not need this to run the app - enviroment.ts is committed with a working Firebase
+// config (public client identifiers, see the comment there). Copy this file over enviroment.ts
+// only if you want your own backing data instead of the demo project's.
+//
+// Your Firestore needs an "ingredients" collection of { name, visible, pizzaId } documents,
+// where "name" matches an SVG in public/images/ - otherwise the builder renders empty.
 export const environment = {
     production: false,
     firebaseConfig: {

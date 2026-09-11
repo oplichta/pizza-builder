@@ -41,5 +41,14 @@ testem.log
 .DS_Store
 Thumbs.db
 
-# Local secrets - copy enviroment.example.ts to enviroment.ts and fill in real values
-/enviroment.ts
+# NOTE: enviroment.ts is intentionally committed. It holds only public client identifiers
+# (the Firebase web config, which ships in the browser bundle anyway; the Mapbox token is left
+# as a placeholder) - see the "Configuration" section in README.md. Real secrets live in .env.
+/.env
+
+# server/ is tracked on the nestjs-backend branch only — on other branches it's just
+# leftover node_modules/dist/.env from switching back and forth, not real changes here
+/server
+
+# Personal study notes stay local; docs/screenshots/ is committed for the README
+/docs/*.md
