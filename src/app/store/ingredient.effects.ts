@@ -14,7 +14,10 @@ export class IngredientEffects {
     loadIngredients$ = createEffect(() =>
         this.actions$.pipe(
           ofType(IngredientActions.loadIngredients),
-          mergeMap(() =>
+          // switchMap, not mergeMap: collectionData() is a long-lived stream, and loadIngredients
+          // is dispatched from two components. mergeMap would stack overlapping Firestore
+          // listeners that never complete; switchMap drops the previous one on every new action.
+          switchMap(() =>
             collectionData(collection(this.firestore, 'ingredients'), { idField: 'id' }).pipe(
               map((ingredients: any[]) => 
                 IngredientActions.loadIngredientsSuccess({ ingredients })
