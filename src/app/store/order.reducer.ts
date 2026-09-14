@@ -1,7 +1,17 @@
-import { createReducer, on } from '@ngrx/store';
-import { addIngredient, removeIngredient, updateItemQuantity, clearOrder, addPizza, removePizza,
-        updatePizzaSize, setActivePizza, checkPromoCode, checkPromoCodeSuccess, checkPromoCodeFailure,
-        clearPromoCode } from './order.actions';
+import { Action, createReducer, on } from '@ngrx/store';
+import {
+    addIngredient,
+    removeIngredient,
+    clearOrder,
+    addPizza,
+    removePizza,
+    updatePizzaSize,
+    setActivePizza,
+    checkPromoCode,
+    checkPromoCodeSuccess,
+    checkPromoCodeFailure,
+    clearPromoCode,
+} from './order.actions';
 import { OrderState, Pizza, PizzaSize, PromoState } from './order.models';
 
 export const initialPromoState: PromoState = { code: null, percent: 0, status: 'idle' };
@@ -20,7 +30,7 @@ const prices = {
 
 const calculatePizzaPrice = (pizza: Pizza) => {
     const basePrice = prices[pizza.size]?.base || 0;
-    const ingredientsPrice = pizza.selectedIngredients.reduce((sum, item) => sum + (prices[pizza.size]?.ingredients || 0), 0);
+    const ingredientsPrice = pizza.selectedIngredients.length * prices[pizza.size]?.ingredients || 0;
     return basePrice + ingredientsPrice;
 };
 
@@ -70,17 +80,6 @@ const _orderReducer = createReducer(
         return { ...state, pizzas: updatedPizzas, totalAmount: updatedTotalAmount };
     }),
 
-    on(updateItemQuantity, (state, { itemId, quantity }) => {
-        const updatedPizzas = state.pizzas.map((pizza) => {
-            const updatedItems = pizza.selectedIngredients.map((item) => (item.id === itemId ? { ...item, quantity } : item));
-            const updatedPizza = { ...pizza, items: updatedItems };
-            const pizzaPrice = calculatePizzaPrice(updatedPizza);
-            return { ...updatedPizza, price: pizzaPrice };
-        });
-        const updatedTotalAmount = updatedPizzas.reduce((sum, pizza) => sum + pizza.price * pizza.quantity, 0);
-        return { ...state, pizzas: updatedPizzas, totalAmount: updatedTotalAmount };
-    }),
-
     on(updatePizzaSize, (state, { size }) => {
         const pizzaId = state.activePizzaId;
         const updatedPizzas = state.pizzas.map((pizza) => {
@@ -97,25 +96,25 @@ const _orderReducer = createReducer(
 
     on(setActivePizza, (state, { pizzaId }) => ({ ...state, activePizzaId: pizzaId })),
 
-    on(clearOrder, (state) => ({ ...state, pizzaItems: [], totalAmount: 0 })),
+    on(clearOrder, () => initialOrderState ),
 
     on(checkPromoCode, (state, { code }) => {
         return { ...state, promo: { code, percent: 0, status: 'checking' } };
     }),
-   
+
     on(checkPromoCodeSuccess, (state, { code, percent }) => {
-         return { ...state, promo: { code, percent, status: 'valid' } };
+        return { ...state, promo: { code, percent, status: 'valid' } };
     }),
-    
+
     on(checkPromoCodeFailure, (state, { code }) => {
-         return { ...state, promo: { code, percent: 0, status: 'invalid' } };
+        return { ...state, promo: { code, percent: 0, status: 'invalid' } };
     }),
-   
+
     on(clearPromoCode, (state) => {
-          return { ...state, promo: initialPromoState };
-    }),
+        return { ...state, promo: initialPromoState };
+    })
 );
 
-export function orderReducer(state: any, action: any) {
+export function orderReducer(state: OrderState | undefined, action: Action) {
     return _orderReducer(state, action);
 }
