@@ -5,12 +5,13 @@ import { Store } from '@ngrx/store';
 import { selectActivePizzaId, selectIngredientsOfPizza } from '../../store/order.selectors';
 import { addIngredient, removeIngredient } from '../../store/order.actions';
 import { Ingredient } from '../../store/ingredient.models';
-import { selectAllIngredients } from '../../store/ingredient.selectors';
+import { selectAllIngredients, selectIngredientsLoading } from '../../store/ingredient.selectors';
 import { loadIngredients } from '../../store/ingredient.actions';
+import { LoaderComponent } from '../loader/loader.component';
 
 @Component({
     selector: 'pizza-ingredients',
-    imports: [AsyncPipe, TitleCasePipe],
+    imports: [AsyncPipe, TitleCasePipe, LoaderComponent],
     templateUrl: './pizza-ingredients.component.html',
     styleUrl: './pizza-ingredients.component.scss',
 })
@@ -19,6 +20,7 @@ export class PizzaIngredientsComponent {
 
     activePizzaId$: Observable<number>;
     selectedIngredients$: Observable<Ingredient[]>;
+    loading$: Observable<boolean>;
     activePizzaId = 0;
     ingredients$: Observable<Ingredient[]>;
 
@@ -26,6 +28,7 @@ export class PizzaIngredientsComponent {
         this.activePizzaId$ = this.store.select(selectActivePizzaId);
         this.selectedIngredients$ = this.activePizzaId$.pipe(switchMap((pizzaId) => this.store.select(selectIngredientsOfPizza(pizzaId))));
         this.ingredients$ = this.store.select(selectAllIngredients);
+        this.loading$ = this.store.select(selectIngredientsLoading);
         this.store.dispatch(loadIngredients());
     }
 
