@@ -1,4 +1,7 @@
 <div class="pizza-ingredients">
+    @if (loading$ | async) {
+        <app-loader [center]="true" />
+    }
     @for (ingredient of ingredients; track ingredient) {
         <label class="pizza-ingredient" [class.pizza-ingredient--active]="checkIngredient(ingredient) | async">
             <input
