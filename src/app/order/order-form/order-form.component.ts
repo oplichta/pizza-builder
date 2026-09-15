@@ -1,15 +1,15 @@
-import { Component, EventEmitter, output, Output, signal } from '@angular/core';
+import { Component, OnInit, output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-
+import { OrderDetails } from '../../services/order-details.service';
 @Component({
     selector: 'order-form',
     imports: [ReactiveFormsModule],
     templateUrl: './order-form.component.html',
     styleUrl: './order-form.component.scss',
 })
-export class OrderFormComponent {
+export class OrderFormComponent implements OnInit {
     orderForm!: FormGroup;
-    formDataSignal = output<{ formData: any; isValid: boolean }>();
+    formDataSignal = output<{ formData: OrderDetails; isValid: boolean }>();
     fields = [
         { name: 'name', label: 'Name', type: 'text', placeholder: 'Jan Kowalski' },
         { name: 'email', label: 'Email', type: 'email', placeholder: 'Enter your email' },

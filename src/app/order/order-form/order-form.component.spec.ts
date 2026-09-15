@@ -1,12 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { provideMockStore, MockStore } from '@ngrx/store/testing';
+import { provideMockStore } from '@ngrx/store/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { OrderFormComponent } from './order-form.component';
 
 describe('OrderFormComponent', () => {
     let component: OrderFormComponent;
     let fixture: ComponentFixture<OrderFormComponent>;
-    let store: MockStore;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
@@ -16,7 +15,6 @@ describe('OrderFormComponent', () => {
 
         fixture = TestBed.createComponent(OrderFormComponent);
         component = fixture.componentInstance;
-        store = TestBed.inject(MockStore);
         component.ngOnInit();
         fixture.detectChanges();
     });

@@ -23,22 +23,23 @@ export class PizzaSizeComponent implements ControlValueAccessor, OnInit {
         { type: PizzaSize.Medium, centimeters: 40 },
         { type: PizzaSize.Large, centimeters: 50 },
     ];
-    isMobileView: boolean = false;
-
+    isMobileView = false;
+    // eslint-disable-next-line @typescript-eslint/no-empty-function -- ControlValueAccessor no-op default
     private onChange: (value: PizzaSize) => void = () => {};
+    // eslint-disable-next-line @typescript-eslint/no-empty-function -- ControlValueAccessor no-op default
     private onTouched: () => void = () => {};
 
     ngOnInit(): void {
-      this.checkScreenSize();
+        this.checkScreenSize();
     }
-  
-    @HostListener('window:resize', ['$event'])
-    onResize(event: any): void {
-      this.checkScreenSize();
+
+    @HostListener('window:resize')
+    onResize(): void {
+        this.checkScreenSize();
     }
-  
+
     private checkScreenSize(): void {
-      this.isMobileView = window.innerWidth < 400;
+        this.isMobileView = window.innerWidth < 400;
     }
 
     onChangeSize(value: PizzaSize) {
@@ -59,6 +60,6 @@ export class PizzaSizeComponent implements ControlValueAccessor, OnInit {
     registerOnTouched(fn: () => void): void {
         this.onTouched = fn;
     }
-
+    // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-unused-vars -- ControlValueAccessor requires this signature and the body is intentionally a no-op
     setDisabledState?(isDisabled: boolean): void {}
 }

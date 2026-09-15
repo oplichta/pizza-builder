@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { provideMockStore, MockStore } from '@ngrx/store/testing';
+import { provideMockStore } from '@ngrx/store/testing';
 import { OrderSummaryComponent } from './order-summary.component';
 import { Pizza, PizzaSize } from '../../store/order.models';
 import { selectOrderItems, selectOrderTotalAmount } from '../../store/order.selectors';
@@ -7,7 +7,6 @@ import { selectOrderItems, selectOrderTotalAmount } from '../../store/order.sele
 describe('OrderSummaryComponent', () => {
     let component: OrderSummaryComponent;
     let fixture: ComponentFixture<OrderSummaryComponent>;
-    let store: MockStore;
 
     const mockPizzas: Pizza[] = [
         { id: 1, name: 'Margherita', size: PizzaSize.Medium, selectedIngredients: [], quantity: 1, price: 12.99 },
@@ -30,7 +29,6 @@ describe('OrderSummaryComponent', () => {
 
         fixture = TestBed.createComponent(OrderSummaryComponent);
         component = fixture.componentInstance;
-        store = TestBed.inject(MockStore);
         fixture.detectChanges();
     });
 
