@@ -7,18 +7,21 @@
     @if (pizzas$ | async; as pizzas) {
         <div>
             @for (pizza of pizzas; track pizza.id; let i = $index) {
-                <div>
-                    <div class="pizza-creator__header" (click)="togglePizza(i)">
+                <div class="pizza-creator__item">
+                    <button type="button" class="pizza-creator__header" (click)="togglePizza(i)">
                         <i
                             class="fa fa-fw pizza-creator__icon"
                             [class.fa-chevron-down]="(activePizzaId$ | async) !== pizza.id"
                             [class.fa-chevron-up]="(activePizzaId$ | async) === pizza.id"
                         ></i>
                         Pizza {{ i + 1 }}
-                        <!-- <div class="pizza-creator__delete" *ngIf="pizzas.length > 1" (click)="removePizza(i)">
-            Remove pizza <img class="pizza-creator__icon-trash" src="/pizza-builder/images/icons-trash.svg" alt="Delete pizza" />
-          </div> -->
-                    </div>
+                    </button>
+                    @if (pizzas.length > 1) {
+                        <button type="button" class="pizza-creator__delete" (click)="removePizza(i)">
+                            Remove pizza
+                            <img class="pizza-creator__icon-trash" src="/pizza-builder/images/icons-trash.svg" alt="Delete pizza" />
+                        </button>
+                    }
                     <div class="pizza-creator__content" [class.pizza-creator__content--open]="(activePizzaId$ | async) === pizza.id">
                         <h3>Select the size</h3>
                         <form [formGroup]="form">

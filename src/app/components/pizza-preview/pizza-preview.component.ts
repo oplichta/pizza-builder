@@ -1,7 +1,6 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { AsyncPipe } from '@angular/common';
-import { Component, Input } from '@angular/core';
-import { FormArray } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
 import { Observable, switchMap } from 'rxjs';
 import { Pizza } from '../../store/order.models';
 import { Store } from '@ngrx/store';
@@ -26,7 +25,7 @@ export const DROP_ANIMATION = trigger('drop', [
     styleUrl: './pizza-preview.component.scss',
     animations: [DROP_ANIMATION]
 })
-export class PizzaPreviewComponent {
+export class PizzaPreviewComponent implements OnInit {
     ingredients$: Observable<Ingredient[]>;
     pizzas$: Observable<Pizza[]>;
     activePizzaId$: Observable<number>;

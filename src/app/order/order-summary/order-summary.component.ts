@@ -1,6 +1,5 @@
 import { AsyncPipe, CurrencyPipe, TitleCasePipe } from '@angular/common';
-import { Component, EventEmitter, input, Input, Output } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { selectDiscountAmount, selectFinalTotal, selectOrderItems, selectOrderTotalAmount } from '../../store/order.selectors';
 import { Observable } from 'rxjs';

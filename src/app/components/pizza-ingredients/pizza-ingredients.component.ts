@@ -1,5 +1,5 @@
 import { AsyncPipe, TitleCasePipe } from '@angular/common';
-import { Component, forwardRef, inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { map, Observable, switchMap, take } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { selectActivePizzaId, selectIngredientsOfPizza } from '../../store/order.selectors';
@@ -15,7 +15,7 @@ import { LoaderComponent } from '../loader/loader.component';
     templateUrl: './pizza-ingredients.component.html',
     styleUrl: './pizza-ingredients.component.scss',
 })
-export class PizzaIngredientsComponent {
+export class PizzaIngredientsComponent implements OnInit {
     ingredients: string[] = [];
 
     activePizzaId$: Observable<number>;

@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { Actions, ofType, createEffect } from '@ngrx/effects';
 import { Firestore, collection, collectionData } from '@angular/fire/firestore';
 import { of } from 'rxjs';
-import { catchError, map, mergeMap, retry, switchMap, tap } from 'rxjs/operators';
+import { catchError, map, mergeMap, switchMap } from 'rxjs/operators';
 import * as IngredientActions from './ingredient.actions';
 import { doc, updateDoc } from 'firebase/firestore';
 
