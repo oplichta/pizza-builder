@@ -4,7 +4,7 @@
     <div class="section">
         @for (field of fields; track field.name) {
             <div class="input">
-                <label>
+                <label [attr.for]="field.name">
                     {{ field.label }} <span class="required">*</span>
                     @if (orderForm.get(field.name)?.errors && orderForm.get(field.name)?.touched) {
                         <span class="error">
@@ -23,7 +23,7 @@
                         </span>
                     }
                 </label>
-                <input [formControlName]="field.name" [type]="field.type" [placeholder]="field.placeholder" />
+                <input [id]="field.name" [formControlName]="field.name" [type]="field.type" [placeholder]="field.placeholder" />
             </div>
         }
     </div>

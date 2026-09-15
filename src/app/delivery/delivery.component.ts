@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -27,7 +27,7 @@ mapboxgl.workerUrl = 'mapbox-gl-csp-worker.js';
   templateUrl: './delivery.component.html',
   styleUrls: ['./delivery.component.scss'],
 })
-export class DeliveryComponent implements OnInit, OnDestroy {
+export class DeliveryComponent implements OnDestroy {
   paymentCompleted = false;
   loading = false;
   delivered = false;
@@ -48,8 +48,6 @@ export class DeliveryComponent implements OnInit, OnDestroy {
     private orderDetailsService: OrderDetailsService,
     private http: HttpClient
   ) {}
-
-  ngOnInit(): void {}
 
   makePayment() {
     this.loading = true;
