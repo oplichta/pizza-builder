@@ -355,6 +355,37 @@
         }
     }
 }
+
+.drop-enter {
+    animation: drop-in 300ms cubic-bezier(1, 0, 0, 1);
+}
+
+.drop-leave {
+    animation: drop-out 200ms cubic-bezier(1, 0, 0, 1) forwards;
+}
+
+@keyframes drop-in {
+    from {
+        transform: translateY(-200px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes drop-out {
+    from {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(-200px);
+        opacity: 0;
+    }
+}
+
 @media (max-width: 768px) {
     .pizza-preview {
         width: 390px;

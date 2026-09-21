@@ -1,13 +1,13 @@
 <div class="pizza-preview">
     <div class="pizza-preview-table-side"></div>
     <div class="pizza-preview-table"></div>
-    @for (pizza of pizzas$ | async; track pizza.id; let i = $index) {
-        <div class="pizza" [class.pizza--active]="activePizzaId === i">
+    @for (pizza of pizzas$ | async; track pizza.id) {
+        <div class="pizza" [class.pizza--active]="(activePizzaId$ | async) === pizza.id">
             <div class="pizza-board"></div>
             <div class="pizza-base"></div>
             <div class="pizza-ingredients">
                 @for (ingredient of ingredients$ | async; track ingredient.id; let i = $index) {
-                    <div [style.zIndex]="i" @drop>
+                    <div [style.zIndex]="i" animate.enter="drop-enter" animate.leave="drop-leave">
                         <div class="pizza-ingredient pizza-ingredient--{{ ingredient.name }}"></div>
                         <div class="pizza-ingredient pizza-ingredient--{{ ingredient.name }}"></div>
                         <div class="pizza-ingredient pizza-ingredient--{{ ingredient.name }}"></div>

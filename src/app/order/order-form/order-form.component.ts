@@ -1,6 +1,9 @@
-import { Component, OnInit, output } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit, output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { OrderDetails } from '../../services/order-details.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { startWith } from 'rxjs';
+
 @Component({
     selector: 'order-form',
     imports: [ReactiveFormsModule],
@@ -8,6 +11,9 @@ import { OrderDetails } from '../../services/order-details.service';
     styleUrl: './order-form.component.scss',
 })
 export class OrderFormComponent implements OnInit {
+    private fb = inject(FormBuilder);
+
+    private destroyRef = inject(DestroyRef);
     orderForm!: FormGroup;
     formDataSignal = output<{ formData: OrderDetails; isValid: boolean }>();
     fields = [
@@ -17,8 +23,6 @@ export class OrderFormComponent implements OnInit {
         { name: 'postcode', label: 'Postcode', type: 'text', placeholder: '00-000' },
         { name: 'phone', label: 'Contact Number', type: 'text', placeholder: '+48 123 456 789' },
     ];
-
-    constructor(private fb: FormBuilder) {}
 
     ngOnInit() {
         // Fields are seeded with sample data so the demo can be walked through without typing.
@@ -30,17 +34,10 @@ export class OrderFormComponent implements OnInit {
             postcode: ['80-244', [Validators.required, Validators.pattern(/^\d{2}-\d{3}$/)]],
         });
         // Listen for changes in the form and update the signal
-        this.orderForm.valueChanges.subscribe(() => {
-            this.formDataSignal.emit({
-                formData: this.orderForm.value,
-                isValid: this.orderForm.valid,
-            });
-        });
-        // valueChanges doesn't fire for the seeded values, so emit them once up front to let the
-        // parent's validity gate (the Continue button) reflect the pre-filled demo data.
-        this.formDataSignal.emit({
-            formData: this.orderForm.value,
-            isValid: this.orderForm.valid,
+        // startWith emits the seeded values once up front, because valueChanges doesn't fire for them and
+        // the parent's validity gate (the Continue button) must reflect the pre-filled demo data.
+        this.orderForm.valueChanges.pipe(startWith(this.orderForm.value), takeUntilDestroyed(this.destroyRef)).subscribe(() => {
+            this.formDataSignal.emit({ formData: this.orderForm.value, isValid: this.orderForm.valid });
         });
     }
 }

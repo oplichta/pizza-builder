@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, take } from 'rxjs';
 import { addPizza, removePizza, setActivePizza, updatePizzaSize } from '../../store/order.actions';
@@ -17,16 +17,16 @@ import { Router } from '@angular/router';
     styleUrl: './pizza-creator.component.scss',
 })
 export class PizzaCreatorComponent implements OnInit {
+    private store = inject(Store);
+    private fb = inject(FormBuilder);
+    private router = inject(Router);
+
     pizzas$: Observable<Pizza[]>;
     pizzaSizes = PizzaSize;
     activePizzaId$: Observable<number>;
     form: FormGroup;
 
-    constructor(
-        private store: Store,
-        private fb: FormBuilder,
-        private router: Router
-    ) {
+    constructor() {
         this.pizzas$ = this.store.select(selectOrderItems);
         this.activePizzaId$ = this.store.select(selectActivePizzaId);
         this.form = this.fb.group({
@@ -35,14 +35,14 @@ export class PizzaCreatorComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.pizzas$.subscribe((pizzas) => {
+        this.pizzas$.pipe(take(1)).subscribe((pizzas) => {
             if (pizzas.length === 0) this.addPizza();
         });
     }
 
     addPizza() {
         this.pizzas$.pipe(take(1)).subscribe((pizzas) => {
-            const pizzaId = pizzas.length;
+            const pizzaId = Math.max(-1, ...pizzas.map((p) => p.id)) + 1;
             const pizza: Pizza = {
                 id: pizzaId,
                 size: this.pizzaSizes.Small,
@@ -60,8 +60,8 @@ export class PizzaCreatorComponent implements OnInit {
         this.pizzas$.pipe(take(1)).subscribe((pizzas) => {
             const pizzaId = pizzas[index].id;
             this.store.dispatch(removePizza({ pizzaId }));
-            const newActivePizzaId = pizzas.length > 1 ? pizzas[pizzas.length - 2].id : 0;
-            this.store.dispatch(setActivePizza({ pizzaId: newActivePizzaId }));
+            const remaining = pizzas.filter((p) => p.id !== pizzaId);
+            this.store.dispatch(setActivePizza({ pizzaId: remaining.at(-1)?.id ?? 0 }));
         });
     }
 

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { ManagerIngredientsListComponent } from '../../manager-ingredients-list/manager-ingredients-list.component';
 
@@ -9,7 +9,7 @@ import { ManagerIngredientsListComponent } from '../../manager-ingredients-list/
     styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent {
-    constructor(private router: Router) {}
+    private router = inject(Router);
 
     logout() {
         sessionStorage.removeItem('isManagerLoggedIn');

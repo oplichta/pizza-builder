@@ -7,13 +7,14 @@ import {
     updateIngredientFailure,
 } from './ingredient.actions';
 import { Ingredient } from './ingredient.models';
+import { Action } from '@ngrx/store';
 
 describe('ingredientReducer', () => {
     const ingredient1: Ingredient = { id: 1, pizzaId: 0, name: 'cheese', visible: true };
     const ingredient2: Ingredient = { id: 2, pizzaId: 0, name: 'olive', visible: true };
 
     it('returns the initial state for an unknown action', () => {
-        const state = ingredientReducer(undefined, { type: '@@INIT' } as any);
+        const state = ingredientReducer(undefined, { type: '@@INIT' } as Action);
         expect(state).toEqual(initialState);
     });
 

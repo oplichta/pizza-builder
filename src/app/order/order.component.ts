@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, signal, inject } from '@angular/core';
 import { PizzaPreviewComponent } from '../components/pizza-preview/pizza-preview.component';
 import { OrderFormComponent } from './order-form/order-form.component';
 import { OrderSummaryComponent } from './order-summary/order-summary.component';
@@ -14,7 +14,9 @@ import { PromoCodeComponent } from '../components/promo-code/promo-code.componen
     styleUrls: ['./order.component.scss'],
 })
 export class OrderComponent {
-    constructor(private router: Router, private orderDetailsService: OrderDetailsService) {}
+    private router = inject(Router);
+    private orderDetailsService = inject(OrderDetailsService);
+
     orderFormDataSignal = signal<{ formData: Partial<OrderDetails>; isValid: boolean }>({ formData: {}, isValid: false });
 
     orderDetails = computed(() => this.orderFormDataSignal().formData);
