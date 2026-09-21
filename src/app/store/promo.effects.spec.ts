@@ -4,9 +4,10 @@ import { Observable, of, throwError } from 'rxjs';
 import { PromoEffects } from './promo.effects';
 import { PromoService } from '../services/promo.service';
 import * as OrderActions from './order.actions';
+import { Action } from '@ngrx/store';
 
 describe('PromoEffects', () => {
-    let actions$: Observable<any>;
+    let actions$: Observable<Action>;
     let effects: PromoEffects;
     let promoServiceSpy: { check: jest.Mock };
 

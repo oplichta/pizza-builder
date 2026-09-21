@@ -1,5 +1,5 @@
 import { AsyncPipe, CurrencyPipe, TitleCasePipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { selectDiscountAmount, selectFinalTotal, selectOrderItems, selectOrderTotalAmount } from '../../store/order.selectors';
 import { Observable } from 'rxjs';
@@ -12,12 +12,14 @@ import { Pizza } from '../../store/order.models';
     styleUrl: './order-summary.component.scss',
 })
 export class OrderSummaryComponent {
+    private store = inject(Store);
+
     pizzas$: Observable<Pizza[]>;
     totalPrice$: Observable<number>;
     discount$: Observable<number>;
     finalTotal$: Observable<number>;
 
-    constructor(private store: Store) {
+    constructor() {
         this.pizzas$ = this.store.select(selectOrderItems);
         this.totalPrice$ = this.store.select(selectOrderTotalAmount);
         this.discount$ = this.store.select(selectDiscountAmount);

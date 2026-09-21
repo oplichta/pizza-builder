@@ -3,7 +3,6 @@ import { provideHttpClient } from '@angular/common/http';
 import { getAnalytics, provideAnalytics } from '@angular/fire/analytics';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
-import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter } from '@angular/router';
 import { provideEffects } from '@ngrx/effects';
 import { provideStore } from '@ngrx/store';
@@ -23,7 +22,6 @@ export const appConfig: ApplicationConfig = {
         provideStore({ ingredient: ingredientReducer, order: orderReducer }),
         provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
         provideEffects(IngredientEffects, PromoEffects),
-        provideAnimations(),
         provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
         provideFirestore(() => getFirestore()),
         provideAnalytics(() => getAnalytics()),

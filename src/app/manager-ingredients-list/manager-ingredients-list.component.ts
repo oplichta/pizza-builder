@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import * as IngredientActions from '../store/ingredient.actions';
@@ -13,8 +13,10 @@ import { AsyncPipe, CommonModule } from '@angular/common';
     styleUrl: './manager-ingredients-list.component.scss',
 })
 export class ManagerIngredientsListComponent {
+    private store = inject(Store);
+
     ingredients$: Observable<Ingredient[]>;
-    constructor(private store: Store) {
+    constructor() {
         this.ingredients$ = this.store.select(selectAllIngredients);
         this.store.dispatch(IngredientActions.loadIngredients());
     }

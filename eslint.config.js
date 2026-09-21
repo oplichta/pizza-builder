@@ -26,9 +26,9 @@ module.exports = defineConfig([
                     style: 'kebab-case',
                 },
             ],
-            '@angular-eslint/prefer-inject': 'warn', // TODO: constructor DI is used throughout the app (11+ components) — migrating to inject() is a separate architectural pass, not part of this cleanup round
-            '@typescript-eslint/no-explicit-any': 'warn', // TODO: mix of legitimate third-party/test-double `any` (Mapbox types, test action stubs) and real shortcuts — narrowing all of them isn't a single-step job
-        },
+            '@angular-eslint/prefer-inject': 'error',
+            '@typescript-eslint/no-explicit-any': 'error',
+                    },
     },
     {
         files: ['**/*.html'],

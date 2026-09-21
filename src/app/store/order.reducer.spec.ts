@@ -2,6 +2,7 @@ import { orderReducer, initialOrderState } from './order.reducer';
 import { addPizza, removePizza, addIngredient, removeIngredient, updatePizzaSize, setActivePizza, clearOrder } from './order.actions';
 import { Pizza, PizzaSize } from './order.models';
 import { Ingredient } from './ingredient.models';
+import { Action } from '@ngrx/store';
 
 describe('orderReducer', () => {
     const mockPizza: Pizza = {
@@ -14,7 +15,7 @@ describe('orderReducer', () => {
     };
 
     it('returns the initial state for an unknown action', () => {
-        const state = orderReducer(undefined, { type: '@@INIT' } as any);
+        const state = orderReducer(undefined, { type: '@@INIT' } as Action);
         expect(state).toEqual(initialOrderState);
     });
 
