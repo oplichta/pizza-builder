@@ -1,4 +1,4 @@
-import { Component, computed, signal, inject } from '@angular/core';
+import { Component, computed, signal, inject, ChangeDetectionStrategy } from '@angular/core';
 import { PizzaPreviewComponent } from '../components/pizza-preview/pizza-preview.component';
 import { OrderFormComponent } from './order-form/order-form.component';
 import { OrderSummaryComponent } from './order-summary/order-summary.component';
@@ -12,6 +12,7 @@ import { PromoCodeComponent } from '../components/promo-code/promo-code.componen
     imports: [PizzaPreviewComponent, OrderFormComponent, OrderSummaryComponent, PromoCodeComponent],
     templateUrl: './order.component.html',
     styleUrls: ['./order.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OrderComponent {
     private router = inject(Router);

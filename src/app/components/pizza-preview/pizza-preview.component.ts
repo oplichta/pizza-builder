@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Observable, switchMap } from 'rxjs';
 import { Pizza } from '../../store/order.models';
 import { Store } from '@ngrx/store';
@@ -11,6 +11,7 @@ import { Ingredient } from '../../store/ingredient.models';
     imports: [AsyncPipe],
     templateUrl: './pizza-preview.component.html',
     styleUrl: './pizza-preview.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PizzaPreviewComponent {
     private store = inject(Store);

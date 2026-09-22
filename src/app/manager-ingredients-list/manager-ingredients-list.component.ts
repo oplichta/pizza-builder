@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import * as IngredientActions from '../store/ingredient.actions';
@@ -11,6 +11,7 @@ import { AsyncPipe, CommonModule } from '@angular/common';
     imports: [CommonModule, AsyncPipe],
     templateUrl: './manager-ingredients-list.component.html',
     styleUrl: './manager-ingredients-list.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ManagerIngredientsListComponent {
     private store = inject(Store);

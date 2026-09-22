@@ -1,5 +1,5 @@
 import { AsyncPipe, TitleCasePipe } from '@angular/common';
-import { Component, Signal, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Signal, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { combineLatest, map, Observable, switchMap, take } from 'rxjs';
 import { Store } from '@ngrx/store';
@@ -15,6 +15,7 @@ import { LoaderComponent } from '../loader/loader.component';
     imports: [AsyncPipe, TitleCasePipe, LoaderComponent],
     templateUrl: './pizza-ingredients.component.html',
     styleUrl: './pizza-ingredients.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PizzaIngredientsComponent {
     private store = inject(Store);

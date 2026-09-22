@@ -28,6 +28,8 @@ interface DirectionsResponse {
     routes?: { geometry?: { coordinates?: [number, number][] } }[];
 }
 
+// No OnPush here: the countdown and the courier animation mutate component fields from
+// setInterval and requestAnimationFrame, which wouldn't mark the view for check.
 @Component({
     selector: 'app-delivery',
     standalone: true,

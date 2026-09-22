@@ -1,5 +1,5 @@
 import { AsyncPipe, CurrencyPipe, TitleCasePipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { selectDiscountAmount, selectFinalTotal, selectOrderItems, selectOrderTotalAmount } from '../../store/order.selectors';
 import { Observable } from 'rxjs';
@@ -10,6 +10,7 @@ import { Pizza } from '../../store/order.models';
     imports: [AsyncPipe, CurrencyPipe, TitleCasePipe],
     templateUrl: './order-summary.component.html',
     styleUrl: './order-summary.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OrderSummaryComponent {
     private store = inject(Store);

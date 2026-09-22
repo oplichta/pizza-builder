@@ -1,4 +1,4 @@
-import { Component, DestroyRef, inject, OnInit, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit, output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { OrderDetails } from '../../services/order-details.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -9,6 +9,7 @@ import { startWith } from 'rxjs';
     imports: [ReactiveFormsModule],
     templateUrl: './order-form.component.html',
     styleUrl: './order-form.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OrderFormComponent implements OnInit {
     private fb = inject(FormBuilder);

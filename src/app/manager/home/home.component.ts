@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { ManagerIngredientsListComponent } from '../../manager-ingredients-list/manager-ingredients-list.component';
 
@@ -7,6 +7,7 @@ import { ManagerIngredientsListComponent } from '../../manager-ingredients-list/
     imports: [ManagerIngredientsListComponent],
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeComponent {
     private router = inject(Router);
