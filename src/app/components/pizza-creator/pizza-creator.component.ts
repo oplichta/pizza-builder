@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, OnInit, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, take } from 'rxjs';
 import { addPizza, removePizza, setActivePizza, updatePizzaSize } from '../../store/order.actions';
@@ -15,6 +15,7 @@ import { Router } from '@angular/router';
     imports: [PizzaSizeComponent, AsyncPipe, PizzaIngredientsComponent, ReactiveFormsModule],
     templateUrl: './pizza-creator.component.html',
     styleUrl: './pizza-creator.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PizzaCreatorComponent implements OnInit {
     private store = inject(Store);

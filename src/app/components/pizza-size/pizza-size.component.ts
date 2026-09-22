@@ -1,5 +1,5 @@
 import { TitleCasePipe } from '@angular/common';
-import { Component, forwardRef, HostListener, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, forwardRef, HostListener, OnInit, signal } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { PizzaSize } from '../../store/order.models';
 
@@ -15,6 +15,7 @@ import { PizzaSize } from '../../store/order.models';
             multi: true,
         },
     ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PizzaSizeComponent implements ControlValueAccessor, OnInit {
     value = PizzaSize.Small;
@@ -23,7 +24,7 @@ export class PizzaSizeComponent implements ControlValueAccessor, OnInit {
         { type: PizzaSize.Medium, centimeters: 40 },
         { type: PizzaSize.Large, centimeters: 50 },
     ];
-    isMobileView = false;
+    isMobileView = signal(false);
     // eslint-disable-next-line @typescript-eslint/no-empty-function -- ControlValueAccessor no-op default
     private onChange: (value: PizzaSize) => void = () => {};
     // eslint-disable-next-line @typescript-eslint/no-empty-function -- ControlValueAccessor no-op default
@@ -39,7 +40,7 @@ export class PizzaSizeComponent implements ControlValueAccessor, OnInit {
     }
 
     private checkScreenSize(): void {
-        this.isMobileView = window.innerWidth < 400;
+        this.isMobileView.set(window.innerWidth < 400);
     }
 
     onChangeSize(value: PizzaSize) {

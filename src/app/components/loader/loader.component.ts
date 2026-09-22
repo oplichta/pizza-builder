@@ -1,9 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 @Component({
     selector: 'app-loader',
     templateUrl: './loader.component.html',
     styleUrls: ['./loader.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoaderComponent {
     @Input() height = '14px';

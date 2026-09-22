@@ -2,7 +2,7 @@
     @for (size of sizes; track size; let i = $index) {
         <label class="pizza-size__item" [class.pizza-size__item--active]="value === size.type">
             <input type="radio" name="size" [attr.value]="size.type" (change)="onChangeSize(size.type)" [checked]="value === size.type" />
-            @if (!isMobileView) {
+            @if (!isMobileView()) {
                 <div class="pizza-size__plate">
                     <div class="pizza-size__pizza pizza-size__pizza--{{ size.type }}">
                         <div class="pizza-size__pizza__line"></div>

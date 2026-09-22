@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { debounceTime, distinctUntilChanged, map, skip } from 'rxjs';
 import { checkPromoCode, clearPromoCode } from '../../store/order.actions';
@@ -14,6 +14,7 @@ const TYPING_PAUSE_MS = 400;
     templateUrl: './promo-code.component.html',
     styleUrls: ['./promo-code.component.scss'],
     imports: [LoaderComponent],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PromoCodeComponent {
     private store = inject(Store);
@@ -29,9 +30,9 @@ export class PromoCodeComponent {
         const { status, code, percent } = this.promo();
         switch (status) {
             case 'valid':
-                return `Kod ${code} — rabat ${percent}%`;
+                return `Code ${code} — disscount ${percent}%`;
             case 'invalid':
-                return `Nieznany kod ${code}`;
+                return `Unknown code ${code}`;
             default:
                 return null;
         }

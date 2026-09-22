@@ -1,0 +1,36 @@
+name: CI
+
+on:
+    push:
+        branches: [master]
+    pull_request:
+        branches: [master]
+
+# Minimal token scope: this workflow only reads the repository.
+permissions:
+    contents: read
+
+# A new push to the same branch cancels the previous, still-running check.
+concurrency:
+    group: ${{ github.workflow }}-${{ github.ref }}
+    cancel-in-progress: true
+
+jobs:
+    verify:
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v4
+
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: 24
+                  cache: npm
+
+            - run: npm ci
+
+            - run: npm run lint
+
+            - run: npm test
+
+            - run: npm run build

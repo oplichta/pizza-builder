@@ -12,4 +12,5 @@ export const routes: Routes = [
     { path: 'delivery', loadComponent: () => import('./delivery/delivery.component').then((m) => m.DeliveryComponent) },
     { path: 'manager', component: LoginComponent },
     { path: 'manager/home', component: HomeComponent, canActivate: [authGuard] },
+    { path: '**', redirectTo: '' },
 ];
