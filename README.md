@@ -6,10 +6,11 @@ Build a pizza, order it, then watch the courier drive to your door on a live map
 
 ![The pizza builder, mid-order](docs/screenshots/builder.png)
 
+[![CI](https://github.com/oplichta/pizza-builder/actions/workflows/ci.yml/badge.svg)](https://github.com/oplichta/pizza-builder/actions/workflows/ci.yml)
 ![Angular](https://img.shields.io/badge/Angular-21-dd0031)
 ![NgRx](https://img.shields.io/badge/NgRx-21-purple)
 ![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178c6)
-![Tests](https://img.shields.io/badge/Jest-30%20passing-success)
+![Tests](https://img.shields.io/badge/Jest-65%20passing-success)
 
 ---
 
@@ -82,7 +83,7 @@ It also needs a workaround: Angular's esbuild builder can't bundle Mapbox's blob
 
 ## Tech stack
 
-**Angular 21** (standalone components, `@if` / `@for` control flow, signals) · **NgRx 21** (store, effects, devtools) · **RxJS 7** · **Firebase / Firestore** · **Mapbox GL JS** · **Jest 30** with `jest-preset-angular` · **SCSS** · **TypeScript** in `strict` mode with `strictTemplates`
+**Angular 21** (standalone components, `@if` / `@for` control flow, signals) · **NgRx 21** (store, effects, devtools) · **RxJS 7** · **Firebase / Firestore** · **Mapbox GL JS** · **Jest 30** with `jest-preset-angular` · **ESLint** via `angular-eslint` · **SCSS** · **TypeScript** in `strict` mode with `strictTemplates`
 
 ---
 
@@ -100,7 +101,7 @@ The Mapbox token is handled differently, and deliberately so. `enviroment.ts` sh
 
 ## Getting started
 
-Requires Node 20+.
+Requires Node 22 or newer. CI runs on Node 24.
 
 ```bash
 npm install
@@ -118,11 +119,12 @@ That's it — the committed Firebase config backs the toppings list, so the buil
 ## Testing
 
 ```bash
-npm test               # 30 tests across 16 suites
+npm test               # 65 tests across 21 suites
 npm run test:coverage
+npm run lint
 ```
 
-Coverage focuses on component logic and store integration — dispatching the right actions, deriving the right view state, and the `ControlValueAccessor` contract. Reducers, selectors and `promo.effects` are not covered yet; they're pure functions and next on the list.
+The store is the best-covered part of the app: reducers, selectors and `promo.effects` sit at 94% statement coverage, and the route guard at 100%. Component specs drive their components through a mocked store and assert on rendered DOM and dispatched actions rather than on internal fields, so they survive refactors. Overall statement coverage is 79%; the gap is mostly `delivery.component`, whose Mapbox and animation code isn't worth testing without a real map.
 
 ---
 
@@ -146,5 +148,4 @@ Smaller gaps, listed honestly:
 
 - Payment is simulated — there is no real payment provider.
 - The order form has no city field, so geocoding is constrained to Poland.
-- No ESLint and no CI pipeline yet.
-- Accessibility needs work: several interactive elements are `div`s without keyboard support.
+- The delivery map needs a Mapbox token in `enviroment.ts` to work locally; every other screen runs without one.
